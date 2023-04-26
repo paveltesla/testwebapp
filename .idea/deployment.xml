@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="server" uploadOnCheckin="3d2dca52-10b5-4195-b664-d7024d4bed74" remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="server">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+            <mapping local="" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myUploadOnCheckinName" value="server" />
+  </component>
+</project>

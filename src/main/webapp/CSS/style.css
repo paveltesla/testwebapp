@@ -1,0 +1,333 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;1,300&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+}
+html,body{
+    height: 100%;
+    width: 100%;
+    background: black;
+}
+body{
+    font-family: 'Montserrat',sans-serif;
+}
+.wrapper{
+    display: flex;
+    min-width: 100%;
+    min-height: 100%;
+    flex-direction: column;
+    background: no-repeat url("https://th.bing.com/th/id/R.a9da3aa1a259fb26962342d5db4bc44f?rik=3t8C%2bjOESbL0Hw&pid=ImgRaw&r=0");
+}
+
+.main{
+    display: flex;
+    flex-grow: 1;
+    height: 100%;
+    color: ghostwhite;
+    background: rgba(0, 0, 0, 0.91);
+    margin: 0 50px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.content{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.table{
+    border-color: #eae8e8;
+    border-width: 1px;
+    border-style: solid;
+    text-align: center;
+    border-spacing: 0;
+    margin-bottom: 2rem;
+    color: #ededed;
+    margin-top: 20px;
+}
+td,th{
+    border-style: solid;
+    border-width: 1px;
+    border-color: ghostwhite;
+    font-weight: bold;
+    padding: 5px 10px;
+}
+th{
+    background: rgba(187, 187, 187, 0.89);
+    color: black;
+}
+
+.input{
+    display: flex;
+    height: 30px;
+    width: 230px;
+    background-color: rgba(200,200,200,0.7);
+    border-radius: 10px;
+    margin: 20px 0;
+    font-size: 14px;
+    font-weight: 300;
+    border: solid 3px ;
+    box-shadow: rgb(90,90,90) 0 5px 10px 0;
+    outline: none;
+    padding: 5px;
+}
+
+.header a {
+    text-decoration: none;
+    color: ghostwhite;
+    font-size: large;
+    cursor: pointer;
+    margin-right: 10px;
+    position: relative;
+}
+.header a:before{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -1px;
+    left: 0;
+    background-color: ghostwhite;
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s linear;
+}
+.header a:hover::before{
+    visibility: visible;
+    transform: scaleX(1);
+}
+
+.link span {
+    color: ghostwhite;
+    font-size: large;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.8s linear;
+}
+
+.link span:after{
+    content: '\00bb';
+    opacity: 0;
+    top: 0;
+    transition: all 0.8s linear;
+}
+
+.link:hover span{
+}
+
+.link:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+.buttons{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+::placeholder{
+    color: ghostwhite;
+
+}
+.button{
+    background: rgba(248, 248, 255, 0.38);
+    border-radius: 10px;
+    border: 2px black solid;
+    padding: 10px;
+    font-size: 16px;
+    transition: all 150ms linear;
+    font-weight:bold;
+    margin: 10px 5px;
+    color: black;
+    box-shadow: rgb(90,90,90) 0 5px 10px 0;
+    text-decoration: none;
+}
+
+.button:hover{
+    background-color: rgba(0, 0, 0, 0.59);
+    transition: all 150ms linear;
+    color: ghostwhite;
+}
+
+.link{
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    transition: all 0.5s linear;
+    color: ghostwhite;
+}
+
+.link span {
+    cursor: pointer;
+    position: relative;
+    transition: 0.5s;
+}
+
+.link span:after{
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    transition: 0.5s;
+}
+
+.link:hover span{
+    padding-right:  10px;
+}
+
+.link:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+.message{
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    display: block;
+    width: 200px;
+    margin: 10px;
+}
+
+.footer{
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.89);
+}
+
+.footer-text{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.header{
+    display: flex;
+    position: sticky;
+    justify-content: space-between;
+    align-items: center;
+    height: 65px;
+    background-color: rgba(0, 0, 0, 0.88);
+    top: 0;
+    color: ghostwhite;
+    box-shadow: rgb(90,90,90) 0 5px 20px 5px;
+    z-index: 2;
+}
+.header-title{
+    margin-left: 30px;
+}
+.select{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3rem;
+}
+.title{
+    display: flex;
+    height: 200px;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+select{
+    border-radius: 5px;
+    color: black;
+    font-size: 1rem;
+    box-shadow: rgb(90,90,90) 0 5px 10px 0;
+}
+
+.text_block.element-animation{
+    display: flex;
+    width: 100%;
+    height: 30rem;
+    align-items: end;
+    justify-content: space-around;
+    opacity: 0;
+    transform: translateX(50px);
+    transition: 2s all;
+}
+.text_block.element-animation.element-show{
+    display: flex;
+    opacity: 1;
+    transform: translateX(0);
+    transition: all 2s;
+}
+
+.text_block1-text1{
+    display: flex;
+    align-items: center;
+    font-style: italic;
+    width: 150px;
+}
+
+.text_block1-text2{
+    display: flex;
+    font-style: oblique;
+    width: 200px;
+
+}
+
+.ui-menu.element-animation{
+    display: flex;
+    justify-content: space-around;
+    width: 90%;
+    height: 30rem;
+    align-items: end;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: 2s all;
+}
+.ui-menu.element-animation.element-show{
+    display: flex;
+    opacity: 1;
+    transition: all 2s;
+    transform: translateY(0);
+}
+.ui-menu-icon1{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 100px;
+    align-items: center;
+}
+.ui-menu-icon2{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+}
+.ui-menu-icon3{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+}
+.conclude.element-animation{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    height: 30rem;
+    width: 60%;
+    opacity: 0;
+    transform: rotateY(40deg);
+    transition: 2s all;
+    margin-bottom: 10rem;
+}
+
+.conclude.element-animation.element-show{
+    opacity: 1;
+    transform: rotateX(0);
+    transition: 2s all;
+}
+
+.conclude-text {
+    display: flex;
+    justify-content: center;
+}
+.conclude-title{
+    display: flex;
+}
