@@ -13,7 +13,7 @@
     <style>
         <%@include file='../../CSS/style.css' %>
     </style>
-    <title>Welcome</title>
+    <title>Hello World</title>
 </head>
 <body>
 <div class="wrapper">
