@@ -1,6 +1,6 @@
 package com.example.web.servlets;
 
-import com.example.DAO.UsersDao;
+import com.example.dao.UsersDao;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;

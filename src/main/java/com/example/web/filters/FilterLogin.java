@@ -2,7 +2,7 @@ package com.example.web.filters;
 
 import com.example.domain.User;
 
-import com.example.DAO.UsersDao;
+import com.example.dao.UsersDao;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.*;

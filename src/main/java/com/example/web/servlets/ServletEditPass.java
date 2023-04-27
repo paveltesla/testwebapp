@@ -1,6 +1,6 @@
 package com.example.web.servlets;
 
-import com.example.DAO.UsersDao;
+import com.example.dao.UsersDao;
 import com.example.utilites.Validation;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
