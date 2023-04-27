@@ -11,7 +11,7 @@ public class Validation {
         return password.length() >= 8 && password.length()<=20;
     }
     public boolean isValidLogin(String login) {
-        return login != null && login.trim().length() != 0;
+        return login == null || login.trim().length() == 0;
     }
     public boolean isValidRole(String role){
         return role != null;

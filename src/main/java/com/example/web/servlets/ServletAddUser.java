@@ -2,13 +2,12 @@ package com.example.web.servlets;
 
 import com.example.dao.UsersDao;
 import com.example.domain.User;
+import com.example.utilites.Validation;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import com.example.utilites.Validation;
-
 
 import java.io.IOException;
 import java.util.Date;
@@ -39,7 +38,7 @@ public class ServletAddUser extends HttpServlet {
 
         if(dao.userIsExist(login, pass)){
             message = "User "+login+" is exist";
-        }else if (!validation.isValidLogin(login)){
+        }else if (validation.isValidLogin(login)){
             message = "The login cannot contain spaces or be equal to Null";
         } else if (!validation.isValidPassword(pass)) {
             message = "The password must not be less than 8 characters";

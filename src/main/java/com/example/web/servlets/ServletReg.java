@@ -37,7 +37,7 @@ public class ServletReg extends HttpServlet {
             message = "This login exist";
             req.setAttribute("message",message);
             req.getRequestDispatcher("WEB-INF/jsp/Sign_in.jsp").forward(req,resp);
-        } else if (!validation.isValidLogin(login)){
+        } else if (validation.isValidLogin(login)){
             message = "Login is invalid";
             req.setAttribute("message",message);
             req.getRequestDispatcher("WEB-INF/jsp/Sign_in.jsp").forward(req,resp);
