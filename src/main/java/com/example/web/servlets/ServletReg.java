@@ -1,7 +1,7 @@
 package com.example.web.servlets;
 
-import com.example.dao.UsersDao;
 import com.example.domain.User;
+import com.example.services.ServiceDaoSingleton;
 import com.example.utilites.Validation;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,7 +14,6 @@ import java.io.IOException;
 
 @WebServlet(name = "ServletReg", value = "/reg.jhtml")
 public class ServletReg extends HttpServlet {
-    UsersDao dao = new UsersDao();
     Validation validation = new Validation();
     String login;
     String pass;
@@ -33,7 +32,7 @@ public class ServletReg extends HttpServlet {
         pass = req.getParameter("pass");
         email = req.getParameter("email");
         role = req.getParameter("role");
-        if(dao.userIsExist(login,pass)){
+        if(ServiceDaoSingleton.getInstance().getValue().userIsExist(login,pass)){
             message = "This login exist";
             req.setAttribute("message",message);
             req.getRequestDispatcher("WEB-INF/jsp/Sign_in.jsp").forward(req,resp);
@@ -50,7 +49,7 @@ public class ServletReg extends HttpServlet {
             req.setAttribute("message",message);
             req.getRequestDispatcher("WEB-INF/jsp/Sign_in.jsp").forward(req,resp);
         }else {
-            dao.regUser(login,pass,email, User.Role.valueOf(role));
+            ServiceDaoSingleton.getInstance().getValue().regUser(login,pass,email, User.Role.valueOf(role));
             resp.sendRedirect("/auth.jhtml");
         }
     }

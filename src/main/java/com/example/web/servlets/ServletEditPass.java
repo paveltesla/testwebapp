@@ -1,6 +1,7 @@
 package com.example.web.servlets;
 
-import com.example.dao.UsersDao;
+import com.example.dao.UserDaoSingleton;
+import com.example.services.ServiceDaoSingleton;
 import com.example.utilites.Validation;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -13,7 +14,7 @@ import java.io.IOException;
 
 @WebServlet(name ="ServletEditPass", value = "/editPass.jhtml")
 public class ServletEditPass extends HttpServlet {
-    UsersDao dao = new UsersDao();
+
     Validation validation = new Validation();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -37,7 +38,8 @@ public class ServletEditPass extends HttpServlet {
             }else {
                 if (nPass.equals(nPassRep)){
                     if (validation.isValidPassword(nPassRep)){
-                        dao.editPass(dao.getLogin(login), nPassRep);
+                        ServiceDaoSingleton.getInstance().getValue().editPass(
+                                UserDaoSingleton.getInstance().getValue().getLogin(login), nPassRep);
                         message = "The Password has been changed";
                     }else {
                         message = "Password Can't be short by 8 chars and long by 20";

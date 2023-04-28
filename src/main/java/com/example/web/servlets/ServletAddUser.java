@@ -1,7 +1,8 @@
 package com.example.web.servlets;
 
-import com.example.dao.UsersDao;
+import com.example.dao.UserDaoSingleton;
 import com.example.domain.User;
+import com.example.services.ServiceDaoSingleton;
 import com.example.utilites.Validation;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,7 +15,7 @@ import java.util.Date;
 
 @WebServlet(name = "ServletAddUser", value = "/add.jhtml")
 public class ServletAddUser extends HttpServlet {
-    UsersDao dao = new UsersDao();
+
     Validation validation = new Validation();
     String message;
     @Override
@@ -36,7 +37,7 @@ public class ServletAddUser extends HttpServlet {
 
         Date birthday = validation.date(birthdayStr);
 
-        if(dao.userIsExist(login, pass)){
+        if(ServiceDaoSingleton.getInstance().getValue().userIsExist(login, pass)){
             message = "User "+login+" is exist";
         }else if (validation.isValidLogin(login)){
             message = "The login cannot contain spaces or be equal to Null";
@@ -45,7 +46,7 @@ public class ServletAddUser extends HttpServlet {
         } else if (!validation.isValidEmail(email)) {
             message = "There is no exist mail";
         } else {
-            dao.addUser(login,pass,name,surname,patronymic,birthday, User.Role.valueOf(role),email);
+            UserDaoSingleton.getInstance().getValue().addUser(login,pass,name,surname,patronymic,birthday, User.Role.valueOf(role),email);
             message = "User has be added!";
         }
         req.setAttribute("message",message);

@@ -1,7 +1,8 @@
 package com.example.web.servlets;
 
-import com.example.dao.UsersDao;
+import com.example.dao.UserDaoSingleton;
 import com.example.domain.User;
+import com.example.services.ServiceDaoSingleton;
 import com.example.utilites.Validation;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -15,13 +16,13 @@ import java.util.Date;
 
 @WebServlet(name = "ServletEditUser", value = "/edit.jhtml")
 public class ServletEditUser extends HttpServlet {
-UsersDao dao = new UsersDao();
+
 String loginToEdit;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         loginToEdit = req.getParameter("login");
         HttpSession session = req.getSession();
-        for (User u:dao.getAll()){
+        for (User u: UserDaoSingleton.getInstance().getValue().getAll()){
             if (u.getLogin().equals(loginToEdit)){
                 session.setAttribute("user",u);
             }
@@ -47,7 +48,8 @@ String loginToEdit;
 
         if(/*validation.isValidLogin(login)*/ validation.isValidEmail(email) && validation.isValidRole(role) && validation.isValidDate(birthdayStr)){
             Date birthday = validation.date(birthdayStr);
-            dao.editUser(dao.getLogin(login),name,surname,patronymic,birthday,role,email);
+            ServiceDaoSingleton.getInstance().getValue().editUser(
+                    UserDaoSingleton.getInstance().getValue().getLogin(login),name,surname,patronymic,birthday,role,email);
             message = "user is edited";
         }else {
             message ="login email or date is invalid";

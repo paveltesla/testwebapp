@@ -1,6 +1,7 @@
 package com.example.web.servlets;
 
-import com.example.dao.UsersDao;
+import com.example.dao.UserDaoSingleton;
+import com.example.services.ServiceDaoSingleton;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,7 +12,6 @@ import java.io.IOException;
 
 @WebServlet(name = "ServletUserDell", value = "/dell.jhtml")
 public class ServletUserDell extends HttpServlet {
-UsersDao dao = new UsersDao();
     String login;
     String pass;
     @Override
@@ -25,8 +25,8 @@ UsersDao dao = new UsersDao();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (dao.userIsExist(login, pass)){
-            dao.delete(dao.getLogin(login));
+        if (ServiceDaoSingleton.getInstance().getValue().userIsExist(login, pass)){
+            ServiceDaoSingleton.getInstance().getValue().delete(UserDaoSingleton.getInstance().getValue().getLogin(login));
             String message = "User has been deleted";
             req.setAttribute("message",message);
             req.getRequestDispatcher("WEB-INF/jsp/UserList.jsp").forward(req,resp);
