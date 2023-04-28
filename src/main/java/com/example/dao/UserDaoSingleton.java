@@ -2,6 +2,7 @@ package com.example.dao;
 
 public class UserDaoSingleton {
     public UserDao value;
+
     private static UserDaoSingleton instance;
 
     public UserDaoSingleton() {

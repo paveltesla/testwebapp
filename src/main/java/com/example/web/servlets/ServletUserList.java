@@ -1,6 +1,6 @@
 package com.example.web.servlets;
 
-import com.example.dao.UserFactory;
+import com.example.dao.UserDaoSingleton;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,13 +14,13 @@ import java.io.IOException;
 @WebServlet(name = "ServletUserList", value = "/list.jhtml")
 public class ServletUserList extends HttpServlet  {
 
-    UserFactory userFactory = new UserFactory();
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        session.setAttribute("list", userFactory.create("UserDaoImplement"));
+        session.setAttribute("list", UserDaoSingleton.getInstance().getValue().getAll());
         request.getRequestDispatcher("WEB-INF/jsp/UserList.jsp").forward(request,response);
     }
 
