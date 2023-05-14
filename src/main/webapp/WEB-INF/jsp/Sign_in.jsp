@@ -25,7 +25,8 @@
       <form method="post" action="/reg.jhtml" autocomplete="off">
         <input class="input" type="text" name="login" placeholder="Login">
         <input class="input" type="password"  name="pass" placeholder="Password">
-        <input class="input" type="text" name="email" placeholder="Email">
+        <input class="input" type="text" name="name" placeholder="Name">
+        <input class="input" type="text" name="age" placeholder="Age">
         <div class="roles_change">
           <select id="role" name="role">
             <c:forEach items="${role}" var="role">

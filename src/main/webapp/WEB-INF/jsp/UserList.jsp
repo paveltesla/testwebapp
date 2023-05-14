@@ -20,11 +20,10 @@
                     <th>Login</th>
                     <th>Password</th>
                     <th>Name</th>
-                    <th>Surname</th>
-                    <th>Patronymic</th>
+                    <th>Age</th>
                     <th>Birthday</th>
                     <th>Role</th>
-                    <th>Email</th>
+                    <th>Salary</th>
                     <th>Edit User</th>
                     <th>Delete User</th>
                 </tr>
@@ -34,16 +33,15 @@
                         <td><c:out value="${user.getLogin()}"/></td>
                         <td><c:out value="${user.getPass()}"/></td>
                         <td><c:out value="${user.getName()}"/></td>
-                        <td><c:out value="${user.getSurname()}"/></td>
-                        <td><c:out value="${user.getPatronymic()}"/></td>
-                        <td><fmt:formatDate pattern="dd-MM-yyyy" value="${user.getBirthday()}"/></td>
-                        <td><c:out value="${user.getRole()}"/></td>
-                        <td><c:out value="${user.getEmail()}"/></td>
+                        <td><c:out value="${user.getAge()}"/></td>
+                        <td><fmt:formatDate pattern="yyyy-MM-dd" value="${user.getBirthday()}"/></td>
+                        <td><c:out value="${user.getRole().toString()}"/></td>
+                        <td><c:out value="${user.getSalary()}"/></td>
                         <td style="border: none">
-                            <a href="<c:url value="/edit.jhtml?login=${user.getLogin()}"/>" class="link"><span>Edit</span></a>
+                            <a href="<c:url value="/edit.jhtml?login=${user.getLogin()}&pass=${user.getPass()}"/>" class="link"><span>Edit</span></a>
                         </td>
                         <td style="border: none">
-                            <a href="<c:url value="/dell.jhtml?login=${user.getLogin()}"/>" class="link"><span>Delete</span></a>
+                            <a href="<c:url value="/dell.jhtml?login=${user.getLogin()}&pass=${user.getPass()}"/>" class="link"><span>Delete</span></a>
                         </td>
                     </tr>
                 </c:forEach>

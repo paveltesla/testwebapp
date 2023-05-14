@@ -1,6 +1,7 @@
 package com.example.web.servlets;
 
 import com.example.dao.UserDaoSingleton;
+import com.example.domain.Role;
 import com.example.domain.User;
 import com.example.services.ServiceDaoSingleton;
 import com.example.utilites.Validation;
@@ -9,10 +10,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.util.Date;
+import java.util.ArrayList;
 
 @WebServlet(name = "ServletEditUser", value = "/edit.jhtml")
 public class ServletEditUser extends HttpServlet {
@@ -21,10 +21,9 @@ String loginToEdit;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         loginToEdit = req.getParameter("login");
-        HttpSession session = req.getSession();
         for (User u: UserDaoSingleton.getInstance().getValue().getAll()){
             if (u.getLogin().equals(loginToEdit)){
-                session.setAttribute("user",u);
+                req.setAttribute("user",u);
             }
         }
         req.getRequestDispatcher("WEB-INF/jsp/User_edit.jsp").forward(req,resp);
@@ -37,22 +36,29 @@ String loginToEdit;
 
         String login = req.getParameter("login");
         String name = req.getParameter("name");
-        String surname = req.getParameter("surname");
-        String patronymic = req.getParameter("patronymic");
+        float salary = Float.parseFloat(req.getParameter("salary"));
+        int age = Integer.parseInt(req.getParameter("age"));
         String birthdayStr = req.getParameter("birthday");
         String role = req.getParameter("role");
-        String email = req.getParameter("email");
 
         String message;
+        ArrayList<Role> roles = new ArrayList<>();
+
+        if(role.equals("ADMIN")){
+            roles.add(new Role(1, role));
+        }else{
+            roles.add(new Role(2, role));
+        }
 
 
-        if(/*validation.isValidLogin(login)*/ validation.isValidEmail(email) && validation.isValidRole(role) && validation.isValidDate(birthdayStr)){
-            Date birthday = validation.date(birthdayStr);
-            ServiceDaoSingleton.getInstance().getValue().editUser(
-                    UserDaoSingleton.getInstance().getValue().getLogin(login),name,surname,patronymic,birthday,role,email);
+
+
+        if(!validation.isValidLogin(login)){
+            ServiceDaoSingleton.getInstance().getValue().editUser(login,name,age,birthdayStr, salary, roles);
             message = "user is edited";
+
         }else {
-            message ="login email or date is invalid";
+            message ="Edit Error";
         }
         req.setAttribute("message",message);
         req.getRequestDispatcher("WEB-INF/jsp/User_edit.jsp").forward(req,resp);

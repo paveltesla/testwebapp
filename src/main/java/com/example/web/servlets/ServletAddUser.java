@@ -1,7 +1,7 @@
 package com.example.web.servlets;
 
 import com.example.dao.UserDaoSingleton;
-import com.example.domain.User;
+import com.example.domain.Role;
 import com.example.services.ServiceDaoSingleton;
 import com.example.utilites.Validation;
 import jakarta.servlet.ServletException;
@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.Date;
+import java.util.ArrayList;
 
 @WebServlet(name = "ServletAddUser", value = "/add.jhtml")
 public class ServletAddUser extends HttpServlet {
@@ -29,13 +29,12 @@ public class ServletAddUser extends HttpServlet {
         String login = req.getParameter("login");
         String pass =req.getParameter("pass");
         String name = req.getParameter("name");
-        String surname= req.getParameter("surname");
-        String patronymic= req.getParameter("patronymic");
+        String age = req.getParameter("age");
         String birthdayStr= req.getParameter("birthday");
-        String email= req.getParameter("email");
         String role = req.getParameter("role");
 
-        Date birthday = validation.date(birthdayStr);
+        ArrayList<Role>roles = new ArrayList<>();
+        roles.add(new Role(role));
 
         if(ServiceDaoSingleton.getInstance().getValue().userIsExist(login, pass)){
             message = "User "+login+" is exist";
@@ -43,10 +42,12 @@ public class ServletAddUser extends HttpServlet {
             message = "The login cannot contain spaces or be equal to Null";
         } else if (!validation.isValidPassword(pass)) {
             message = "The password must not be less than 8 characters";
-        } else if (!validation.isValidEmail(email)) {
-            message = "There is no exist mail";
+        }else if (age.equals("")){
+            message = "Insert your age";
+        }else if(Integer.parseInt(age) < 18){
+            message = "Age doesn't be minor by 18";
         } else {
-            UserDaoSingleton.getInstance().getValue().addUser(login,pass,name,surname,patronymic,birthday, User.Role.valueOf(role),email);
+            UserDaoSingleton.getInstance().getValue().addUser(login,pass,name,Integer.parseInt(age),birthdayStr, roles);
             message = "User has be added!";
         }
         req.setAttribute("message",message);

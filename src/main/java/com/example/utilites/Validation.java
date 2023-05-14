@@ -11,7 +11,7 @@ public class Validation {
         return password.length() >= 8 && password.length()<=20;
     }
     public boolean isValidLogin(String login) {
-        return login == null || login.trim().length() == 0;
+        return login == null;
     }
     public boolean isValidRole(String role){
         return role != null;
@@ -40,5 +40,9 @@ public class Validation {
         } catch (ParseException e) {
             e.printStackTrace();
         }return birthday;
+    }
+
+    public boolean isValidAge(String age){
+        return !age.equals("");
     }
 }

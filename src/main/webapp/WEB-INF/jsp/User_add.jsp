@@ -26,10 +26,8 @@
                 <input type="text" name="login" placeholder="Login" autocomplete="off" class="input" >
                 <input type="password" name="pass" placeholder="Password" autocomplete="off" class="input" >
                 <input type="text" name="name" placeholder="Name" autocomplete="off" class="input" >
-                <input type="text" name="surname" placeholder="Surname" autocomplete="off" class="input" >
-                <input type="text" name="patronymic" placeholder="Patronymic" autocomplete="off" class="input" >
+                <input type="text" name="age" placeholder="age" autocomplete="off" class="input">
                 <input type="date" name="birthday" placeholder="Birthday" autocomplete="off" class="input" >
-                <input type="email" name="email" placeholder="Email" autocomplete="off" class="input" >
                 <div class="select">
                     <select name="role">
                         <c:forEach items="${role}" var="role">

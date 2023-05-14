@@ -39,7 +39,7 @@ public class ServletEditPass extends HttpServlet {
                 if (nPass.equals(nPassRep)){
                     if (validation.isValidPassword(nPassRep)){
                         ServiceDaoSingleton.getInstance().getValue().editPass(
-                                UserDaoSingleton.getInstance().getValue().getLogin(login), nPassRep);
+                                UserDaoSingleton.getInstance().getValue().getUserByLogin(login), nPassRep);
                         message = "The Password has been changed";
                     }else {
                         message = "Password Can't be short by 8 chars and long by 20";

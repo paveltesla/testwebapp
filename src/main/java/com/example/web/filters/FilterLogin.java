@@ -1,6 +1,6 @@
 package com.example.web.filters;
 
-import com.example.dao.RoleDaoSingleton;
+import com.example.dao.UserDaoSingleton;
 import com.example.domain.User;
 import com.example.services.ServiceDaoSingleton;
 import jakarta.servlet.*;
@@ -11,56 +11,58 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-import static java.util.Objects.nonNull;
-
-@WebFilter(filterName ="FilterLogin", value = "/auth.jhtml")
+@WebFilter(filterName = "FilterLogin", value = "/auth.jhtml")
 public class FilterLogin implements Filter {
-    String message;
-    String login;
-    String pass;
+
+    private ServletContext context;
+
+    public void init(FilterConfig fConfig) throws ServletException {
+        this.context = fConfig.getServletContext();
+        this.context.log("RequestLoggingFilter initialized");
+    }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
-
         HttpSession session = req.getSession();
 
+        String login = req.getParameter("login");
+        String pass = req.getParameter("pass");
 
-        login = req.getParameter("login");
-        pass = req.getParameter("pass");
+//        req.setAttribute("login",login);
+//        req.setAttribute("pass",pass);
+        if ((session.getAttribute("login") != null) && (session.getAttribute("pass") != null)) {
+            req.setAttribute("login", session.getAttribute("login"));
+            req.setAttribute("pass", session.getAttribute("pass"));
+            req.setAttribute("role", session.getAttribute("role"));
+            moveToMenu(req, resp);
 
-        if(nonNull(session)&&nonNull(session.getAttribute("login"))&&nonNull(session.getAttribute("pass"))){
-            final User.Role role = (User.Role) session.getAttribute("role");
-            moveToMenu(req,resp,role);
         } else if (ServiceDaoSingleton.getInstance().getValue().userIsExist(login, pass)) {
+            User user = UserDaoSingleton.getInstance().getValue().getUserByLogin(login);
+            req.setAttribute("login", user.getLogin());
+            req.setAttribute("pass", user.getPass());
+            req.setAttribute("role", user.getRole());
 
-            User.Role role = RoleDaoSingleton.getInstance().getValue().getRoleLoginPass(login,pass);
-
-            req.getSession().setAttribute("login", login);
-            req.getSession().setAttribute("pass", pass);
-            req.getSession().setAttribute("role",role);
-
-            moveToMenu(req,resp,role);
-        }else {
-            moveToMenu(req, resp, User.Role.UNKNOWN);
+            moveToMenu(req, resp);
+        } else {
+            req.getSession().invalidate();
+            String message = "Login or password is wrong!";
+            req.setAttribute("message", message);
+            req.getRequestDispatcher("WEB-INF/jsp/Login.jsp").forward(req, resp);
         }
     }
-    private void moveToMenu(HttpServletRequest req, HttpServletResponse resp, User.Role role) throws IOException, ServletException{
 
-        if(role.equals(User.Role.ADMIN)){
-            req.setAttribute("login",login);
-            req.getRequestDispatcher("WEB-INF/jsp/HomePage.jsp").forward(req,resp);
-        } else if (role.equals(User.Role.USER)) {
-            req.setAttribute("login",login);
-            req.getRequestDispatcher("WEB-INF/jsp/HomePage.jsp").forward(req,resp);
-        }else {
-            req.getSession().invalidate();
-            message = "Login or password is wrong!";
-            req.setAttribute("message", message);
-            req.getRequestDispatcher("WEB-INF/jsp/Login.jsp").forward(req,resp);
+    private void moveToMenu(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        HttpSession session = req.getSession();
+        session.setAttribute("login", req.getAttribute("login"));
+        session.setAttribute("pass", req.getAttribute("pass"));
+        session.setAttribute("role", req.getAttribute("role"));
+        if (session.getAttribute("role").toString().contains("ADMIN")) {
+            req.setAttribute("role", "ADMIN");
         }
+        req.getRequestDispatcher("WEB-INF/jsp/HomePage.jsp").forward(req, resp);
     }
 
     @Override

@@ -1,8 +1,17 @@
 package com.example.dao;
 
 
-import com.example.domain.User;
+import com.example.domain.Role;
+
+import java.util.ArrayList;
 
 public interface RoleDao {
-    public User.Role getRoleLoginPass(final String login, final String pass);
+
+    void getRoleUser(String login, ArrayList<Role> roles);
+
+    void getAllRole(int userId,ArrayList<Role> roles);
+
+    void addRole(int userId, ArrayList<Role> roles);
+
+    void editRole(int id, ArrayList<Role> roles);
 }

@@ -1,5 +1,6 @@
 package com.example.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class User {
@@ -9,81 +10,25 @@ public class User {
     private String login;
     private String pass;
     private String name;
-    private String surname;
-    private String patronymic;
     private Date birthday;
-    private String email;
-    private Role role;
-    public User(String login, String pass, String name, String surname, String patronymic, Date birthday, Role role, String email) {
-        this.login = login;
-        this.pass = pass;
-        this.name = name;
-        this.surname = surname;
-        this.patronymic = patronymic;
-        this.birthday = birthday;
-        this.email = email;
-        this.role = role;
-    }
-    public long getId() {
-        return id;
+    private int age;
+    private ArrayList<com.example.domain.Role> role;
+    private float salary;
+
+    public int getAge() {
+        return age;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setAge(int age) {
+        this.age = age;
     }
 
-    public String getEmail() {
-        return email;
+    public float getSalary() {
+        return salary;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public String getPatronymic() {
-        return patronymic;
-    }
-
-    public void setPatronymic(String patronymic) {
-        this.patronymic = patronymic;
-    }
-
-    public Date getBirthday() {
-        return birthday;
-
-    }
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public User(String login, String pass,Role role){
-        this.login = login;
-        this.pass = pass;
-        this.role = role;
+    public void setSalary(float salary) {
+        this.salary = salary;
     }
 
     public String getPass() {
@@ -102,14 +47,60 @@ public class User {
         this.login = login;
     }
 
-    public User(){
-
+    public int getId() {
+        return id;
     }
-    public User(String login, String pass, String email, Role role){
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public ArrayList<Role> getRole() {
+        return role;
+    }
+
+    public void setRole(ArrayList<Role> role) {
+        this.role = role;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public User(){}
+
+    public User(String login, String pass,ArrayList<Role> role){
         this.login = login;
         this.pass = pass;
-        this.email = email;
         this.role = role;
+    }
+
+    public User( String login, String password, String name, int age, Date birthday, float salary) {
+        this.pass = password;
+        this.name = name;
+        this.age = age;
+        this.login = login;
+        this.salary = salary;
+        this.birthday = birthday;
+    }
+
+    public User(String login, String pass, String name, int age) {
+        this.login = login;
+        this.pass = pass;
+        this.name = name;
+        this.age = age;
     }
 
     @Override
@@ -117,16 +108,12 @@ public class User {
         return "User{" +
                 "login='" + login + '\'' +
                 ", pass='" + pass + '\'' +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", patronymic='" + patronymic + '\'' +
-                ", birthday=" + birthday +
                 ", role=" + role +
-                ", email='" + email + '\'' +
                 '}';
     }
 
-    public enum Role{
-        USER, ADMIN,UNKNOWN
+    public boolean hasRole(String roles) {
+        String strRoles = role.toString();
+        return strRoles.contains(roles);
     }
 }
