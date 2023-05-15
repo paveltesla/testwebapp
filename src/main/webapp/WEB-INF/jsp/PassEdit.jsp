@@ -22,9 +22,10 @@
         <div class="content">
             <h2 class="title"><span>Change Password</span></h2>
             <form method="post" action="<c:url value="/editPass.jhtml"/>">
-                <input type="password" name="oPass" placeholder="Old Password" autocomplete="off" class="input" >
-                <input type="password" name="nPass" placeholder="New Password" autocomplete="off" class="input" >
-                <input type="password" name="nPassRep" placeholder="Repeat New Password" autocomplete="off" class="input" >
+                <input type="password" name="oPass" placeholder="Old Password" autocomplete="off" class="input">
+                <input type="password" name="nPass" placeholder="New Password" autocomplete="off" class="input">
+                <input type="password" name="nPassRep" placeholder="Repeat New Password" autocomplete="off"
+                       class="input">
                 <div class="buttons">
                     <button type="submit" class="button"><span>Change Password</span></button>
                 </div>

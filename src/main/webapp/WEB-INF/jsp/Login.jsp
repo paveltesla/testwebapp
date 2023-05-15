@@ -26,11 +26,11 @@
                     <input class="input" type="text" name="login" placeholder="Login">
                 </label>
                 <label>
-                    <input class="input" type="password"  name="pass" placeholder="Password">
+                    <input class="input" type="password" name="pass" placeholder="Password">
                 </label>
                 <div class="buttons">
                     <button class="button" type="submit"><span>Log In</span></button>
-                    <a href="<c:url value="/reg.jhtml"/>" class="link" ><span>Sign Up</span></a>
+                    <a href="<c:url value="/reg.jhtml"/>" class="link"><span>Sign Up</span></a>
                 </div>
             </form>
             <p class="message"><c:out value="${message}"/></p>

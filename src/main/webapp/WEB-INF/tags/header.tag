@@ -1,8 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ attribute name="usersPages" required="true" %>
 <%@ attribute name="editPass" required="true" %>
-<%@ attribute name="home" required="true"%>
-<%@attribute name="list" required="true"%>
+<%@ attribute name="home" required="true" %>
+<%@attribute name="list" required="true" %>
 <div class="header">
     <h1 class="header-title">My Project</h1>
     <c:if test="${usersPages}">

@@ -23,11 +23,11 @@
         <div class="content">
             <h1 class="title"><span>Adding New User's</span></h1>
             <form action="/add.jhtml" method="post">
-                <input type="text" name="login" placeholder="Login" autocomplete="off" class="input" >
-                <input type="password" name="pass" placeholder="Password" autocomplete="off" class="input" >
-                <input type="text" name="name" placeholder="Name" autocomplete="off" class="input" >
+                <input type="text" name="login" placeholder="Login" autocomplete="off" class="input">
+                <input type="password" name="pass" placeholder="Password" autocomplete="off" class="input">
+                <input type="text" name="name" placeholder="Name" autocomplete="off" class="input">
                 <input type="text" name="age" placeholder="age" autocomplete="off" class="input">
-                <input type="date" name="birthday" placeholder="Birthday" autocomplete="off" class="input" >
+                <input type="date" name="birthday" placeholder="Birthday" autocomplete="off" class="input">
                 <div class="select">
                     <select name="role">
                         <c:forEach items="${role}" var="role">

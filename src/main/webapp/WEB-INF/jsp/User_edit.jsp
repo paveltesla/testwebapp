@@ -24,11 +24,15 @@
         <div class="content">
             <h1 class="title_edit"><span>Editing User <c:out value="${user.getLogin()}"/></span></h1>
             <form action="/edit.jhtml" method="post">
-                <input type="text" name="login" placeholder="Login" autocomplete="off" class="input" value="${user.getLogin()}">
-                <input type="text" name="name" placeholder="Name" autocomplete="off" class="input" value="${user.getName()}">
-                <input type="text" name="age" placeholder="Age" autocomplete="off" class="input" value="${user.getAge()}">
+                <input type="text" name="login" placeholder="Login" autocomplete="off" class="input"
+                       value="${user.getLogin()}">
+                <input type="text" name="name" placeholder="Name" autocomplete="off" class="input"
+                       value="${user.getName()}">
+                <input type="text" name="age" placeholder="Age" autocomplete="off" class="input"
+                       value="${user.getAge()}">
                 <input type="date" name="birthday" class="input" value="${user.getBirthday()}">
-                <input type="text" name="salary" placeholder="Salary" autocomplete="off" class="input" value="${user.getSalary()}">
+                <input type="text" name="salary" placeholder="Salary" autocomplete="off" class="input"
+                       value="${user.getSalary()}">
                 <div class="select">
                     <select id="role" name="role">
                         <c:forEach items="${role}" var="role">

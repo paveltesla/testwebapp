@@ -38,10 +38,12 @@
                         <td><c:out value="${user.getRole().toString()}"/></td>
                         <td><c:out value="${user.getSalary()}"/></td>
                         <td style="border: none">
-                            <a href="<c:url value="/edit.jhtml?login=${user.getLogin()}&pass=${user.getPass()}"/>" class="link"><span>Edit</span></a>
+                            <a href="<c:url value="/edit.jhtml?login=${user.getLogin()}&pass=${user.getPass()}"/>"
+                               class="link"><span>Edit</span></a>
                         </td>
                         <td style="border: none">
-                            <a href="<c:url value="/dell.jhtml?login=${user.getLogin()}&pass=${user.getPass()}"/>" class="link"><span>Delete</span></a>
+                            <a href="<c:url value="/dell.jhtml?login=${user.getLogin()}&pass=${user.getPass()}"/>"
+                               class="link"><span>Delete</span></a>
                         </td>
                     </tr>
                 </c:forEach>
