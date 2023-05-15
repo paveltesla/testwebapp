@@ -9,8 +9,8 @@ public class UserDaoSingleton {
         this.value = new UserDaoImplement();
     }
 
-    public static UserDaoSingleton getInstance(){
-        if(instance == null){
+    public static UserDaoSingleton getInstance() {
+        if (instance == null) {
             instance = new UserDaoSingleton();
         }
         return instance;

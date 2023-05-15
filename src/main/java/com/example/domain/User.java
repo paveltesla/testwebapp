@@ -79,15 +79,16 @@ public class User {
         this.name = name;
     }
 
-    public User(){}
+    public User() {
+    }
 
-    public User(String login, String pass,ArrayList<Role> role){
+    public User(String login, String pass, ArrayList<Role> role) {
         this.login = login;
         this.pass = pass;
         this.role = role;
     }
 
-    public User( String login, String password, String name, int age, Date birthday, float salary) {
+    public User(String login, String password, String name, int age, Date birthday, float salary) {
         this.pass = password;
         this.name = name;
         this.age = age;

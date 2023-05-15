@@ -9,11 +9,11 @@ public interface ServiceDao {
 
     boolean userIsExist(final String login, String pass);
 
-    void delete (String login);
+    void delete(String login);
 
     void editPass(User user, String nPassRep);
 
-    void editUser(String login, String name, int age, String birthday, float  salary, ArrayList<Role> roles);
+    void editUser(String login, String name, int age, String birthday, float salary, ArrayList<Role> roles);
 
     void regUser(String login, String name, int age, String pass, ArrayList<Role> roles);
 }

@@ -13,26 +13,27 @@ import java.io.IOException;
 public class ServletUserDell extends HttpServlet {
     String login;
     String pass;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         login = req.getParameter("login");
         req.setAttribute("login", login);
         pass = req.getParameter("pass");
         req.setAttribute("pass", pass);
-        req.getRequestDispatcher("/WEB-INF/jsp/User_dell.jsp").forward(req,resp);
+        req.getRequestDispatcher("/WEB-INF/jsp/User_dell.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (ServiceDaoSingleton.getInstance().getValue().userIsExist(login, pass)){
+        if (ServiceDaoSingleton.getInstance().getValue().userIsExist(login, pass)) {
             ServiceDaoSingleton.getInstance().getValue().delete(login);
             String message = "User has been deleted";
-            req.setAttribute("message",message);
-            req.getRequestDispatcher("WEB-INF/jsp/UserList.jsp").forward(req,resp);
-        }else{
+            req.setAttribute("message", message);
+            req.getRequestDispatcher("WEB-INF/jsp/UserList.jsp").forward(req, resp);
+        } else {
             String message = "User hasn't been deleted";
-            req.setAttribute("message",message);
-            req.getRequestDispatcher("WEB-INF/jsp/UserList.jsp").forward(req,resp);
+            req.setAttribute("message", message);
+            req.getRequestDispatcher("WEB-INF/jsp/UserList.jsp").forward(req, resp);
         }
     }
 

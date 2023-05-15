@@ -17,16 +17,17 @@ import java.util.ArrayList;
 @WebServlet(name = "ServletEditUser", value = "/edit.jhtml")
 public class ServletEditUser extends HttpServlet {
 
-String loginToEdit;
+    String loginToEdit;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         loginToEdit = req.getParameter("login");
-        for (User u: UserDaoSingleton.getInstance().getValue().getAll()){
-            if (u.getLogin().equals(loginToEdit)){
-                req.setAttribute("user",u);
+        for (User u : UserDaoSingleton.getInstance().getValue().getAll()) {
+            if (u.getLogin().equals(loginToEdit)) {
+                req.setAttribute("user", u);
             }
         }
-        req.getRequestDispatcher("WEB-INF/jsp/User_edit.jsp").forward(req,resp);
+        req.getRequestDispatcher("WEB-INF/jsp/User_edit.jsp").forward(req, resp);
     }
 
     @Override
@@ -36,32 +37,30 @@ String loginToEdit;
 
         String login = req.getParameter("login");
         String name = req.getParameter("name");
-        float salary = Float.parseFloat(req.getParameter("salary"));
-        int age = Integer.parseInt(req.getParameter("age"));
+        String salary = req.getParameter("salary");
+        String age = req.getParameter("age");
         String birthdayStr = req.getParameter("birthday");
         String role = req.getParameter("role");
 
-        String message;
+        String message = null;
         ArrayList<Role> roles = new ArrayList<>();
 
-        if(role.equals("ADMIN")){
+        if (role.equals("ADMIN")) {
             roles.add(new Role(1, role));
-        }else{
+        } else {
             roles.add(new Role(2, role));
         }
 
-
-
-
-        if(!validation.isValidLogin(login)){
-            ServiceDaoSingleton.getInstance().getValue().editUser(login,name,age,birthdayStr, salary, roles);
-            message = "user is edited";
-
-        }else {
-            message ="Edit Error";
+        if (validation.isValidLogin(login)) {
+            try {
+                ServiceDaoSingleton.getInstance().getValue().editUser(login, name, Integer.parseInt(age), birthdayStr, Float.parseFloat(salary), roles);
+                message = "user is edited";
+            } catch (Exception e) {
+                message = "Error input: ".concat(e.getMessage());
+            }
         }
-        req.setAttribute("message",message);
-        req.getRequestDispatcher("WEB-INF/jsp/User_edit.jsp").forward(req,resp);
+        req.setAttribute("message", message);
+        req.getRequestDispatcher("WEB-INF/jsp/User_edit.jsp").forward(req, resp);
     }
 
     @Override

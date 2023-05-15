@@ -18,42 +18,44 @@ public class ServletAddUser extends HttpServlet {
 
     Validation validation = new Validation();
     String message;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("WEB-INF/jsp/User_add.jsp").forward(req,resp);
+        req.getRequestDispatcher("WEB-INF/jsp/User_add.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String login = req.getParameter("login");
-        String pass =req.getParameter("pass");
+        String pass = req.getParameter("pass");
         String name = req.getParameter("name");
         String age = req.getParameter("age");
-        String birthdayStr= req.getParameter("birthday");
+        String birthdayStr = req.getParameter("birthday");
         String role = req.getParameter("role");
 
-        ArrayList<Role>roles = new ArrayList<>();
+        ArrayList<Role> roles = new ArrayList<>();
         roles.add(new Role(role));
 
-        if(ServiceDaoSingleton.getInstance().getValue().userIsExist(login, pass)){
-            message = "User "+login+" is exist";
-        }else if (validation.isValidLogin(login)){
+        if (ServiceDaoSingleton.getInstance().getValue().userIsExist(login, pass)) {
+            message = "User " + login + " is exist";
+        } else if (validation.isValidLogin(login)) {
             message = "The login cannot contain spaces or be equal to Null";
         } else if (!validation.isValidPassword(pass)) {
             message = "The password must not be less than 8 characters";
-        }else if (age.equals("")){
+        } else if (age.equals("")) {
             message = "Insert your age";
-        }else if(Integer.parseInt(age) < 18){
+        } else if (Integer.parseInt(age) < 18) {
             message = "Age doesn't be minor by 18";
         } else {
-            UserDaoSingleton.getInstance().getValue().addUser(login,pass,name,Integer.parseInt(age),birthdayStr, roles);
+            UserDaoSingleton.getInstance().getValue().addUser(login, pass, name, Integer.parseInt(age), birthdayStr, roles);
             message = "User has be added!";
         }
-        req.setAttribute("message",message);
-        req.getRequestDispatcher("WEB-INF/jsp/User_add.jsp").forward(req,resp);
+        req.setAttribute("message", message);
+        req.getRequestDispatcher("WEB-INF/jsp/User_add.jsp").forward(req, resp);
 
     }
+
     @Override
     public void destroy() {
     }

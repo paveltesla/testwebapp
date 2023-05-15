@@ -8,14 +8,17 @@ import java.util.regex.Pattern;
 
 public class Validation {
     public boolean isValidPassword(String password) {
-        return password.length() >= 8 && password.length()<=20;
+        return password.length() >= 8 && password.length() <= 20;
     }
+
     public boolean isValidLogin(String login) {
-        return login == null;
+        return login != null;
     }
-    public boolean isValidRole(String role){
+
+    public boolean isValidRole(String role) {
         return role != null;
     }
+
     public boolean isValidEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
                 "[a-zA-Z0-9_+&*-]+)*@" +
@@ -32,17 +35,18 @@ public class Validation {
         return date.length() == 10;
     }
 
-    public Date date (String date) {
+    public Date date(String date) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date birthday = null;
         try {
             birthday = format.parse(date);
         } catch (ParseException e) {
             e.printStackTrace();
-        }return birthday;
+        }
+        return birthday;
     }
 
-    public boolean isValidAge(String age){
+    public boolean isValidAge(String age) {
         return !age.equals("");
     }
 }

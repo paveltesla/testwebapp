@@ -23,12 +23,14 @@ public class Role {
     public Role(String role) {
         this.role = role;
     }
+
     public Role(int id, String role) {
         this.role = role;
         this.id = id;
     }
 
-    public Role(){}
+    public Role() {
+    }
 
     @Override
     public String toString() {

@@ -12,8 +12,7 @@ import java.io.IOException;
 
 
 @WebServlet(name = "ServletUserList", value = "/list.jhtml")
-public class ServletUserList extends HttpServlet  {
-
+public class ServletUserList extends HttpServlet {
 
 
     @Override
@@ -21,7 +20,7 @@ public class ServletUserList extends HttpServlet  {
 
         HttpSession session = request.getSession();
         session.setAttribute("list", UserDaoSingleton.getInstance().getValue().getAll());
-        request.getRequestDispatcher("WEB-INF/jsp/UserList.jsp").forward(request,response);
+        request.getRequestDispatcher("WEB-INF/jsp/UserList.jsp").forward(request, response);
     }
 
     @Override

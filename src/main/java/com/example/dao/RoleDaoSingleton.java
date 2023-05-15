@@ -8,8 +8,8 @@ public class RoleDaoSingleton {
         this.value = new RoleDaoImplement();
     }
 
-    public static RoleDaoSingleton getInstance(){
-        if(instance == null){
+    public static RoleDaoSingleton getInstance() {
+        if (instance == null) {
             instance = new RoleDaoSingleton();
         }
         return instance;

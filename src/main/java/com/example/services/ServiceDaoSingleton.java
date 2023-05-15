@@ -8,8 +8,8 @@ public class ServiceDaoSingleton {
         this.value = new ServiceDaoImplement();
     }
 
-    public static ServiceDaoSingleton getInstance(){
-        if(instance == null){
+    public static ServiceDaoSingleton getInstance() {
+        if (instance == null) {
             instance = new ServiceDaoSingleton();
         }
         return instance;

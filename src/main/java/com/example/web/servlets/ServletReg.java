@@ -21,9 +21,10 @@ public class ServletReg extends HttpServlet {
     String age;
     String role;
     String message;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("WEB-INF/jsp/Sign_in.jsp").forward(req,resp);
+        req.getRequestDispatcher("WEB-INF/jsp/Sign_in.jsp").forward(req, resp);
     }
 
     @Override
@@ -34,28 +35,28 @@ public class ServletReg extends HttpServlet {
         age = req.getParameter("age");
         name = req.getParameter("name");
 
-        ArrayList<Role>roles = new ArrayList<>();
+        ArrayList<Role> roles = new ArrayList<>();
         roles.add(new Role(role));
 
 
-        if(ServiceDaoSingleton.getInstance().getValue().userIsExist(login,pass)){
+        if (ServiceDaoSingleton.getInstance().getValue().userIsExist(login, pass)) {
             message = "This login exist";
-            req.setAttribute("message",message);
-            req.getRequestDispatcher("WEB-INF/jsp/Sign_in.jsp").forward(req,resp);
-        } else if (validation.isValidLogin(login)){
+            req.setAttribute("message", message);
+            req.getRequestDispatcher("WEB-INF/jsp/Sign_in.jsp").forward(req, resp);
+        } else if (validation.isValidLogin(login)) {
             message = "Login is invalid";
-            req.setAttribute("message",message);
-            req.getRequestDispatcher("WEB-INF/jsp/Sign_in.jsp").forward(req,resp);
+            req.setAttribute("message", message);
+            req.getRequestDispatcher("WEB-INF/jsp/Sign_in.jsp").forward(req, resp);
         } else if (!validation.isValidPassword(pass)) {
             message = "Password is invalid";
-            req.setAttribute("message",message);
-            req.getRequestDispatcher("WEB-INF/jsp/Sign_in.jsp").forward(req,resp);
-        } else if(age.equals("") || Integer.parseInt(age) < 18 || Integer.parseInt(age)>100){
+            req.setAttribute("message", message);
+            req.getRequestDispatcher("WEB-INF/jsp/Sign_in.jsp").forward(req, resp);
+        } else if (age.equals("") || Integer.parseInt(age) < 18 || Integer.parseInt(age) > 100) {
             message = "Age input error";
-            req.setAttribute("message",message);
-            req.getRequestDispatcher("WEB-INF/jsp/Sign_in.jsp").forward(req,resp);
+            req.setAttribute("message", message);
+            req.getRequestDispatcher("WEB-INF/jsp/Sign_in.jsp").forward(req, resp);
         } else {
-            ServiceDaoSingleton.getInstance().getValue().regUser(login,name,Integer.parseInt(age),pass,roles);
+            ServiceDaoSingleton.getInstance().getValue().regUser(login, name, Integer.parseInt(age), pass, roles);
             req.setAttribute("login", login);
             req.setAttribute("pass", pass);
             resp.sendRedirect("/auth.jhtml");

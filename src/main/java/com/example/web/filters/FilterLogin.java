@@ -31,8 +31,6 @@ public class FilterLogin implements Filter {
         String login = req.getParameter("login");
         String pass = req.getParameter("pass");
 
-//        req.setAttribute("login",login);
-//        req.setAttribute("pass",pass);
         if ((session.getAttribute("login") != null) && (session.getAttribute("pass") != null)) {
             req.setAttribute("login", session.getAttribute("login"));
             req.setAttribute("pass", session.getAttribute("pass"));
