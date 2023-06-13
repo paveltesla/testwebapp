@@ -1,7 +1,7 @@
 package com.example.web.servlets;
 
-import com.example.dao.UserDaoSingleton;
-import com.example.services.ServiceDaoSingleton;
+import com.example.dao.UserDao;
+import com.example.services.ServiceDao;
 import com.example.utilites.Validation;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,11 +9,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 
 @WebServlet(name = "ServletEditPass", value = "/editPass.jhtml")
 public class ServletEditPass extends HttpServlet {
+    @Autowired private UserDao userDao;
+    @Autowired private ServiceDao serviceDao;
 
     Validation validation = new Validation();
 
@@ -39,8 +42,8 @@ public class ServletEditPass extends HttpServlet {
             } else {
                 if (nPass.equals(nPassRep)) {
                     if (validation.isValidPassword(nPassRep)) {
-                        ServiceDaoSingleton.getInstance().getValue().editPass(
-                                UserDaoSingleton.getInstance().getValue().getUserByLogin(login), nPassRep);
+                        serviceDao.editPass(
+                                userDao.getUserByLogin(login), nPassRep);
                         message = "The Password has been changed";
                     } else {
                         message = "Password Can't be short by 8 chars and long by 20";

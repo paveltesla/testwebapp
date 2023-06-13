@@ -1,8 +1,8 @@
 package com.example.web.filters;
 
-import com.example.dao.UserDaoSingleton;
+import com.example.dao.UserDao;
 import com.example.domain.User;
-import com.example.services.ServiceDaoSingleton;
+import com.example.services.ServiceDao;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,7 +13,8 @@ import java.io.IOException;
 
 @WebFilter(filterName = "FilterLogin", value = "/auth.jhtml")
 public class FilterLogin implements Filter {
-
+    private ServiceDao serviceDao;
+    private UserDao userDao;
     private ServletContext context;
 
     public void init(FilterConfig fConfig) throws ServletException {
@@ -37,8 +38,8 @@ public class FilterLogin implements Filter {
             req.setAttribute("role", session.getAttribute("role"));
             moveToMenu(req, resp);
 
-        } else if (ServiceDaoSingleton.getInstance().getValue().userIsExist(login, pass)) {
-            User user = UserDaoSingleton.getInstance().getValue().getUserByLogin(login);
+        } else if (serviceDao.userIsExist(login, pass)) {
+            User user = userDao.getUserByLogin(login);
             req.setAttribute("login", user.getLogin());
             req.setAttribute("pass", user.getPass());
             req.setAttribute("role", user.getRole());

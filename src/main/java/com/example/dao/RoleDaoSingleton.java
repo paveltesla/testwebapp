@@ -1,3 +1,4 @@
+/*
 package com.example.dao;
 
 public class RoleDaoSingleton {
@@ -19,3 +20,4 @@ public class RoleDaoSingleton {
         return value;
     }
 }
+*/

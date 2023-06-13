@@ -1,28 +1,32 @@
 package com.example.web.servlets;
 
-import com.example.dao.UserDaoSingleton;
+import com.example.dao.UserDao;
 import com.example.domain.Role;
 import com.example.domain.User;
-import com.example.services.ServiceDaoSingleton;
+import com.example.services.ServiceDao;
 import com.example.utilites.Validation;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 @WebServlet(name = "ServletEditUser", value = "/edit.jhtml")
 public class ServletEditUser extends HttpServlet {
-
+    @Autowired
+    private UserDao userDao;
+    @Autowired
+    private ServiceDao serviceDao;
     String loginToEdit;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         loginToEdit = req.getParameter("login");
-        for (User u : UserDaoSingleton.getInstance().getValue().getAll()) {
+        for (User u : userDao.getAll()) {
             if (u.getLogin().equals(loginToEdit)) {
                 req.setAttribute("user", u);
             }
@@ -53,7 +57,7 @@ public class ServletEditUser extends HttpServlet {
 
         if (validation.isValidLogin(login)) {
             try {
-                ServiceDaoSingleton.getInstance().getValue().editUser(login, name, Integer.parseInt(age), birthdayStr, Float.parseFloat(salary), roles);
+                serviceDao.editUser(login, name, Integer.parseInt(age), birthdayStr, Float.parseFloat(salary), roles);
                 message = "user is edited";
             } catch (Exception e) {
                 message = "Error input: ".concat(e.getMessage());

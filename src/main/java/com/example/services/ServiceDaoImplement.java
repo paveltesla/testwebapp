@@ -1,20 +1,26 @@
 package com.example.services;
 
-
-import com.example.dao.RoleDaoSingleton;
-import com.example.dao.UserDaoSingleton;
+import com.example.dao.RoleDao;
+import com.example.dao.UserDao;
 import com.example.domain.Role;
 import com.example.domain.User;
 import com.example.utilites.DBConnection;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.sql.*;
 import java.util.ArrayList;
 
+@Service
 public class ServiceDaoImplement implements ServiceDao {
+    @Autowired
+    private UserDao userDao;
+    @Autowired
+    private RoleDao roleDao;
     @Override
     public boolean userIsExist(String login, String pass) {
         boolean result = false;
-        for (User user : UserDaoSingleton.getInstance().getValue().getAll()) {
+        for (User user : userDao.getAll()) {
             if (user.getLogin().equals(login) && user.getPass().equals(pass)) {
                 result = true;
                 break;
@@ -79,7 +85,7 @@ public class ServiceDaoImplement implements ServiceDao {
             ResultSet rs = preparedStatement1.executeQuery();
             while (rs.next()) {
                 int userId = rs.getInt("id");
-                RoleDaoSingleton.getInstance().getValue().editRole(userId, roles);
+                roleDao.editRole(userId, roles);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -105,7 +111,7 @@ public class ServiceDaoImplement implements ServiceDao {
             ResultSet resultSet = secondPreparedStatement.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
-                RoleDaoSingleton.getInstance().getValue().addRole(id, roles);
+                roleDao.addRole(id, roles);
 
             }
         } catch (SQLException e) {

@@ -1,11 +1,13 @@
 package com.example.web.servlets;
 
-import com.example.services.ServiceDaoSingleton;
+import com.example.dao.UserDao;
+import com.example.services.ServiceDao;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 
@@ -13,6 +15,10 @@ import java.io.IOException;
 public class ServletUserDell extends HttpServlet {
     String login;
     String pass;
+    @Autowired
+    private UserDao userDao;
+    @Autowired
+    private ServiceDao serviceDao;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -25,8 +31,8 @@ public class ServletUserDell extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (ServiceDaoSingleton.getInstance().getValue().userIsExist(login, pass)) {
-            ServiceDaoSingleton.getInstance().getValue().delete(login);
+        if (serviceDao.userIsExist(login, pass)) {
+            serviceDao.delete(login);
             String message = "User has been deleted";
             req.setAttribute("message", message);
             req.getRequestDispatcher("WEB-INF/jsp/UserList.jsp").forward(req, resp);

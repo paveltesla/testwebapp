@@ -3,6 +3,7 @@ package com.example.dao;
 
 import com.example.domain.Role;
 import com.example.utilites.DBConnection;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,8 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+@Repository
 public class RoleDaoImplement implements RoleDao {
-
 
     public void getRoleUser(String login, ArrayList<Role> roles) {
         String sql = "select role_id, user_id, value from users_role left join role on role.id = users_role.role_id left join users on users.id = users_role.user_id where login = ?;";

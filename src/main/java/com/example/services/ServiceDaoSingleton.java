@@ -1,3 +1,4 @@
+/*
 package com.example.services;
 
 public class ServiceDaoSingleton {
@@ -19,3 +20,4 @@ public class ServiceDaoSingleton {
         return value;
     }
 }
+*/
