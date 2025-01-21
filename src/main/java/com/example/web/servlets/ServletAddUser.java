@@ -39,7 +39,7 @@ public class ServletAddUser extends HttpServlet {
 
         if (ServiceDaoSingleton.getInstance().getValue().userIsExist(login, pass)) {
             message = "User " + login + " is exist";
-        } else if (validation.isValidLogin(login)) {
+        } else if (!validation.isValidLogin(login)) {
             message = "The login cannot contain spaces or be equal to Null";
         } else if (!validation.isValidPassword(pass)) {
             message = "The password must not be less than 8 characters";
