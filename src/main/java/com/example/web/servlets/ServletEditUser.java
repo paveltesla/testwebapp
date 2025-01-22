@@ -3,7 +3,7 @@ package com.example.web.servlets;
 import com.example.dao.UserDaoImplement;
 import com.example.domain.Role;
 import com.example.domain.User;
-import com.example.services.ServiceDaoImplement;
+import com.example.services.AdminServiceImplement;
 import com.example.utilites.Validation;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -53,7 +53,7 @@ public class ServletEditUser extends HttpServlet {
 
         if (validation.isValidLogin(login)) {
             try {
-                ServiceDaoImplement.getInstance().editUser(login, name, Integer.parseInt(age), birthdayStr, Float.parseFloat(salary), roles);
+                AdminServiceImplement.getInstance().editUser(login, name, Integer.parseInt(age), birthdayStr, Float.parseFloat(salary), roles);
                 message = "user is edited";
             } catch (Exception e) {
                 message = "Error input: ".concat(e.getMessage());

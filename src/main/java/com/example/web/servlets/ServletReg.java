@@ -1,7 +1,7 @@
 package com.example.web.servlets;
 
 import com.example.domain.Role;
-import com.example.services.ServiceDaoImplement;
+import com.example.services.AdminServiceImplement;
 import com.example.utilites.Validation;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -39,7 +39,7 @@ public class ServletReg extends HttpServlet {
         roles.add(new Role(role));
 
 
-        if (ServiceDaoImplement.getInstance().userIsExist(login, pass)) {
+        if (AdminServiceImplement.getInstance().userIsExist(login, pass)) {
             message = "This login exist";
             req.setAttribute("message", message);
             req.getRequestDispatcher("WEB-INF/jsp/Sign_in.jsp").forward(req, resp);
@@ -56,7 +56,7 @@ public class ServletReg extends HttpServlet {
             req.setAttribute("message", message);
             req.getRequestDispatcher("WEB-INF/jsp/Sign_in.jsp").forward(req, resp);
         } else {
-            ServiceDaoImplement.getInstance().regUser(login, name, Integer.parseInt(age), pass, roles);
+            AdminServiceImplement.getInstance().regUser(login, name, Integer.parseInt(age), pass, roles);
             req.setAttribute("login", login);
             req.setAttribute("pass", pass);
             resp.sendRedirect("/auth.jhtml");

@@ -10,15 +10,15 @@ import com.example.utilites.DBConnection;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ServiceDaoImplement implements ServiceDao {
-    private static volatile ServiceDaoImplement instance;
-    private ServiceDaoImplement() {
+public class AdminServiceImplement implements AdminService {
+    private static volatile AdminServiceImplement instance;
+    private AdminServiceImplement() {
     }
-    public static ServiceDaoImplement getInstance() {
+    public static AdminServiceImplement getInstance() {
         if (instance == null) {
-            synchronized (ServiceDaoImplement.class) {
+            synchronized (AdminServiceImplement.class) {
                 if (instance == null) {
-                    instance = new ServiceDaoImplement();
+                    instance = new AdminServiceImplement();
                 }
             }
         }

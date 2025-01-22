@@ -8,6 +8,7 @@ public class ServiceFactory {
     public static ServiceFactory getInstance() {
         return instance;
     }
+
     public ServiceFactory getServiceFactory() {
         return new ServiceFactory();
     }

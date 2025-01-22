@@ -5,7 +5,7 @@ import com.example.domain.User;
 
 import java.util.ArrayList;
 
-public interface ServiceDao {
+public interface AdminService {
 
     boolean userIsExist(final String login, String pass);
 
