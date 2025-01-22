@@ -9,7 +9,7 @@ public class ServiceFactory {
         return instance;
     }
 
-    public ServiceFactory getServiceFactory() {
-        return new ServiceFactory();
+    public AdminService getAdminService() {
+        return AdminServiceImplement.getInstance();
     }
 }
