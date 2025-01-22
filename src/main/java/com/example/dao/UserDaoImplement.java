@@ -9,6 +9,22 @@ import java.util.ArrayList;
 
 public class UserDaoImplement implements UserDao {
 
+    private static volatile UserDaoImplement instance;
+
+    private UserDaoImplement() {
+        // Приватный конструктор
+    }
+
+    public static UserDaoImplement getInstance() {
+        if (instance == null) {
+            synchronized (UserDaoImplement.class) {
+                if (instance == null) {
+                    instance = new UserDaoImplement();
+                }
+            }
+        }
+        return instance;
+    }
 
     @Override
     public ArrayList<User> getAll() {
@@ -29,7 +45,7 @@ public class UserDaoImplement implements UserDao {
                 );
                 user.setId(resultSet.getInt("id"));
                 ArrayList<Role> roles = new ArrayList<>();
-                RoleDaoSingleton.getInstance().getValue().getAllRole(user.getId(), roles);
+                RoleDaoImplement.getInstance().getAllRole(user.getId(), roles);
                 user.setRole(roles);
                 users.add(user);
             }
@@ -56,7 +72,7 @@ public class UserDaoImplement implements UserDao {
             ResultSet resultSet = preparedStatement1.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
-                RoleDaoSingleton.getInstance().getValue().addRole(id, role);
+                RoleDaoImplement.getInstance().addRole(id, role);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -67,7 +83,7 @@ public class UserDaoImplement implements UserDao {
 
     public User getUserByLoginPass(final String login, final String pass) {
         User result = new User();
-        for (User user : UserDaoSingleton.getInstance().getValue().getAll()) {
+        for (User user : UserDaoImplement.getInstance().getAll()) {
             if (user.getLogin().equals(login) && user.getPass().equals(pass)) {
                 result = user;
             }
@@ -94,7 +110,7 @@ public class UserDaoImplement implements UserDao {
                 );
                 user.setId(resultSet.getInt("id"));
                 ArrayList<Role> roles = new ArrayList<>();
-                RoleDaoSingleton.getInstance().getValue().getRoleUser(login, roles);
+                RoleDaoImplement.getInstance().getRoleUser(login, roles);
                 user.setRole(roles);
             }
         } catch (SQLException e) {

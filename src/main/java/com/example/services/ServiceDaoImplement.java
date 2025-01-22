@@ -1,8 +1,8 @@
 package com.example.services;
 
 
-import com.example.dao.RoleDaoSingleton;
-import com.example.dao.UserDaoSingleton;
+import com.example.dao.RoleDaoImplement;
+import com.example.dao.UserDaoImplement;
 import com.example.domain.Role;
 import com.example.domain.User;
 import com.example.utilites.DBConnection;
@@ -11,10 +11,24 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class ServiceDaoImplement implements ServiceDao {
+    private static volatile ServiceDaoImplement instance;
+    private ServiceDaoImplement() {
+    }
+    public static ServiceDaoImplement getInstance() {
+        if (instance == null) {
+            synchronized (ServiceDaoImplement.class) {
+                if (instance == null) {
+                    instance = new ServiceDaoImplement();
+                }
+            }
+        }
+        return instance;
+    }
+
     @Override
     public boolean userIsExist(String login, String pass) {
         boolean result = false;
-        for (User user : UserDaoSingleton.getInstance().getValue().getAll()) {
+        for (User user : UserDaoImplement.getInstance().getAll()) {
             if (user.getLogin().equals(login) && user.getPass().equals(pass)) {
                 result = true;
                 break;
@@ -79,7 +93,7 @@ public class ServiceDaoImplement implements ServiceDao {
             ResultSet rs = preparedStatement1.executeQuery();
             while (rs.next()) {
                 int userId = rs.getInt("id");
-                RoleDaoSingleton.getInstance().getValue().editRole(userId, roles);
+                RoleDaoImplement.getInstance().editRole(userId, roles);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -105,7 +119,7 @@ public class ServiceDaoImplement implements ServiceDao {
             ResultSet resultSet = secondPreparedStatement.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
-                RoleDaoSingleton.getInstance().getValue().addRole(id, roles);
+                RoleDaoImplement.getInstance().addRole(id, roles);
 
             }
         } catch (SQLException e) {

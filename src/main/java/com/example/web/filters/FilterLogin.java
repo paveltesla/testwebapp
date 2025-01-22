@@ -1,8 +1,8 @@
 package com.example.web.filters;
 
-import com.example.dao.UserDaoSingleton;
+import com.example.dao.UserDaoImplement;
 import com.example.domain.User;
-import com.example.services.ServiceDaoSingleton;
+import com.example.services.ServiceDaoImplement;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,8 +37,8 @@ public class FilterLogin implements Filter {
             req.setAttribute("role", session.getAttribute("role"));
             moveToMenu(req, resp);
 
-        } else if (ServiceDaoSingleton.getInstance().getValue().userIsExist(login, pass)) {
-            User user = UserDaoSingleton.getInstance().getValue().getUserByLogin(login);
+        } else if (ServiceDaoImplement.getInstance().userIsExist(login, pass)) {
+            User user = UserDaoImplement.getInstance().getUserByLogin(login);
             req.setAttribute("login", user.getLogin());
             req.setAttribute("pass", user.getPass());
             req.setAttribute("role", user.getRole());

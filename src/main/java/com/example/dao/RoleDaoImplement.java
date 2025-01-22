@@ -1,17 +1,29 @@
 package com.example.dao;
 
-
 import com.example.domain.Role;
 import com.example.utilites.DBConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class RoleDaoImplement implements RoleDao {
 
+    private static volatile RoleDaoImplement instance;
+
+    private RoleDaoImplement() {
+        // Приватный конструктор
+    }
+
+    public static RoleDaoImplement getInstance() {
+        if (instance == null) {
+            synchronized (RoleDaoImplement.class) {
+                if (instance == null) {
+                    instance = new RoleDaoImplement();
+                }
+            }
+        }
+        return instance;
+    }
 
     public void getRoleUser(String login, ArrayList<Role> roles) {
         String sql = "select role_id, user_id, value from users_role left join role on role.id = users_role.role_id left join users on users.id = users_role.user_id where login = ?;";

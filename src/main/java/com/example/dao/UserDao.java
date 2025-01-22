@@ -4,6 +4,7 @@ import com.example.domain.Role;
 import com.example.domain.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface UserDao {
 
@@ -11,8 +12,14 @@ public interface UserDao {
 
     void addUser(String login, String pass, String name, int age, String birthday, ArrayList<Role> role);
 
-    User getUserByLoginPass(final String login, final String pass);
+    User getUserByLogin(String login);
 
-    User getUserByLogin(final String login);
+    //List<User> getAllUsers();
+
+   // void addUser(User user);
+
+    //void editUser(User user);
+
+    //void deleteUser(int userId);
 
 }

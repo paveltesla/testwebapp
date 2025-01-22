@@ -1,7 +1,7 @@
 package com.example.web.servlets;
 
-import com.example.dao.UserDaoSingleton;
-import com.example.services.ServiceDaoSingleton;
+import com.example.dao.UserDaoImplement;
+import com.example.services.ServiceDaoImplement;
 import com.example.utilites.Validation;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -39,8 +39,8 @@ public class ServletEditPass extends HttpServlet {
             } else {
                 if (nPass.equals(nPassRep)) {
                     if (validation.isValidPassword(nPassRep)) {
-                        ServiceDaoSingleton.getInstance().getValue().editPass(
-                                UserDaoSingleton.getInstance().getValue().getUserByLogin(login), nPassRep);
+                        ServiceDaoImplement.getInstance().editPass(
+                                UserDaoImplement.getInstance().getUserByLogin(login), nPassRep);
                         message = "The Password has been changed";
                     } else {
                         message = "Password Can't be short by 8 chars and long by 20";

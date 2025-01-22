@@ -1,6 +1,6 @@
 package com.example.web.servlets;
 
-import com.example.dao.UserDaoSingleton;
+import com.example.dao.UserDaoImplement;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -19,7 +19,7 @@ public class ServletUserList extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        session.setAttribute("list", UserDaoSingleton.getInstance().getValue().getAll());
+        session.setAttribute("list", UserDaoImplement.getInstance().getAll());
         request.getRequestDispatcher("WEB-INF/jsp/UserList.jsp").forward(request, response);
     }
 

@@ -1,7 +1,7 @@
 package com.example.domain;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class User {
 
@@ -12,7 +12,7 @@ public class User {
     private String name;
     private Date birthday;
     private int age;
-    private ArrayList<com.example.domain.Role> role;
+    private List<Role> role;
     private float salary;
 
     public int getAge() {
@@ -63,11 +63,11 @@ public class User {
         this.birthday = birthday;
     }
 
-    public ArrayList<Role> getRole() {
+    public List<Role> getRole() {
         return role;
     }
 
-    public void setRole(ArrayList<Role> role) {
+    public void setRole(List<Role> role) {
         this.role = role;
     }
 
@@ -82,7 +82,7 @@ public class User {
     public User() {
     }
 
-    public User(String login, String pass, ArrayList<Role> role) {
+    public User(String login, String pass, List<Role> role) {
         this.login = login;
         this.pass = pass;
         this.role = role;
