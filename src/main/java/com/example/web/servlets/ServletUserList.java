@@ -1,5 +1,6 @@
 package com.example.web.servlets;
 
+import com.example.dao.DaoFactory;
 import com.example.dao.UserDaoImplement;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,7 +20,7 @@ public class ServletUserList extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        session.setAttribute("list", UserDaoImplement.getInstance().getAll());
+        session.setAttribute("list", DaoFactory.getInstance().getUserDao().getAll());
         request.getRequestDispatcher("WEB-INF/jsp/UserList.jsp").forward(request, response);
     }
 

@@ -12,7 +12,6 @@ public class UserDaoImplement implements UserDao {
     private static volatile UserDaoImplement instance;
 
     private UserDaoImplement() {
-        // Приватный конструктор
     }
 
     public static UserDaoImplement getInstance() {
@@ -72,7 +71,7 @@ public class UserDaoImplement implements UserDao {
             ResultSet resultSet = preparedStatement1.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
-                RoleDaoImplement.getInstance().addRole(id, role);
+                DaoFactory.getInstance().getRoleDao().addRole(id, role);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -83,7 +82,7 @@ public class UserDaoImplement implements UserDao {
 
     public User getUserByLoginPass(final String login, final String pass) {
         User result = new User();
-        for (User user : UserDaoImplement.getInstance().getAll()) {
+        for (User user : DaoFactory.getInstance().getUserDao().getAll()) {
             if (user.getLogin().equals(login) && user.getPass().equals(pass)) {
                 result = user;
             }
@@ -110,7 +109,7 @@ public class UserDaoImplement implements UserDao {
                 );
                 user.setId(resultSet.getInt("id"));
                 ArrayList<Role> roles = new ArrayList<>();
-                RoleDaoImplement.getInstance().getRoleUser(login, roles);
+                DaoFactory.getInstance().getRoleDao().getRoleUser(login, roles);
                 user.setRole(roles);
             }
         } catch (SQLException e) {

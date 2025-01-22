@@ -1,6 +1,7 @@
 package com.example.web.servlets;
 
 import com.example.services.AdminServiceImplement;
+import com.example.services.ServiceFactory;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -25,8 +26,8 @@ public class ServletUserDell extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (AdminServiceImplement.getInstance().userIsExist(login, pass)) {
-            AdminServiceImplement.getInstance().delete(login);
+        if (ServiceFactory.getInstance().getAdminService().userIsExist(login, pass)) {
+            ServiceFactory.getInstance().getAdminService().delete(login);
             String message = "User has been deleted";
             req.setAttribute("message", message);
             req.getRequestDispatcher("WEB-INF/jsp/UserList.jsp").forward(req, resp);

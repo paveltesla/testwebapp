@@ -1,8 +1,10 @@
 package com.example.web.servlets;
 
+import com.example.dao.DaoFactory;
 import com.example.dao.UserDaoImplement;
 import com.example.domain.Role;
 import com.example.services.AdminServiceImplement;
+import com.example.services.ServiceFactory;
 import com.example.utilites.Validation;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -37,7 +39,7 @@ public class ServletAddUser extends HttpServlet {
         ArrayList<Role> roles = new ArrayList<>();
         roles.add(new Role(role));
 
-        if (AdminServiceImplement.getInstance().userIsExist(login, pass)) {
+        if (ServiceFactory.getInstance().getAdminService().userIsExist(login,pass)) {
             message = "User " + login + " is exist";
         } else if (!validation.isValidLogin(login)) {
             message = "The login cannot contain spaces or be equal to Null";
@@ -48,7 +50,7 @@ public class ServletAddUser extends HttpServlet {
         } else if (Integer.parseInt(age) < 18) {
             message = "Age doesn't be minor by 18";
         } else {
-            UserDaoImplement.getInstance().addUser(login, pass, name, Integer.parseInt(age), birthdayStr, roles);
+            ServiceFactory.getInstance().getAdminService().addUser(login, pass, name, Integer.parseInt(age), birthdayStr, roles);
             message = "User has be added!";
         }
         req.setAttribute("message", message);

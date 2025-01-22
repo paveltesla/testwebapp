@@ -2,6 +2,7 @@ package com.example.web.servlets;
 
 import com.example.dao.UserDaoImplement;
 import com.example.services.AdminServiceImplement;
+import com.example.services.ServiceFactory;
 import com.example.utilites.Validation;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -39,7 +40,7 @@ public class ServletEditPass extends HttpServlet {
             } else {
                 if (nPass.equals(nPassRep)) {
                     if (validation.isValidPassword(nPassRep)) {
-                        AdminServiceImplement.getInstance().editPass(
+                        ServiceFactory.getInstance().getAdminService().editPass(
                                 UserDaoImplement.getInstance().getUserByLogin(login), nPassRep);
                         message = "The Password has been changed";
                     } else {

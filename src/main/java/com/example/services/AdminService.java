@@ -9,6 +9,8 @@ public interface AdminService {
 
     boolean userIsExist(final String login, String pass);
 
+    void addUser(String login, String pass, String name, int age, String birthday, ArrayList<Role> role);
+
     void delete(String login);
 
     void editPass(User user, String nPassRep);

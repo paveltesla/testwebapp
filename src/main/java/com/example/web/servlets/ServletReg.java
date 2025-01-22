@@ -2,6 +2,7 @@ package com.example.web.servlets;
 
 import com.example.domain.Role;
 import com.example.services.AdminServiceImplement;
+import com.example.services.ServiceFactory;
 import com.example.utilites.Validation;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -39,7 +40,7 @@ public class ServletReg extends HttpServlet {
         roles.add(new Role(role));
 
 
-        if (AdminServiceImplement.getInstance().userIsExist(login, pass)) {
+        if (ServiceFactory.getInstance().getAdminService().userIsExist(login, pass)) {
             message = "This login exist";
             req.setAttribute("message", message);
             req.getRequestDispatcher("WEB-INF/jsp/Sign_in.jsp").forward(req, resp);
@@ -56,7 +57,7 @@ public class ServletReg extends HttpServlet {
             req.setAttribute("message", message);
             req.getRequestDispatcher("WEB-INF/jsp/Sign_in.jsp").forward(req, resp);
         } else {
-            AdminServiceImplement.getInstance().regUser(login, name, Integer.parseInt(age), pass, roles);
+            ServiceFactory.getInstance().getAdminService().regUser(login, name, Integer.parseInt(age), pass, roles);
             req.setAttribute("login", login);
             req.setAttribute("pass", pass);
             resp.sendRedirect("/auth.jhtml");
