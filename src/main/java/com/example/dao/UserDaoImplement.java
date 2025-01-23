@@ -1,29 +1,34 @@
 package com.example.dao;
 
-import com.example.domain.Role;
-import com.example.domain.User;
+import com.example.domain.*;
 import com.example.utilites.DBConnection;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 
+@Repository
 public class UserDaoImplement implements UserDao {
 
-    private static volatile UserDaoImplement instance;
+//    private static volatile UserDaoImplement instance;
+//
+//    private UserDaoImplement() {
+//    }
+//
+//    public static UserDaoImplement getInstance() {
+//        if (instance == null) {
+//            synchronized (UserDaoImplement.class) {
+//                if (instance == null) {
+//                    instance = new UserDaoImplement();
+//                }
+//            }
+//        }
+//        return instance;
+//    }
 
-    private UserDaoImplement() {
-    }
-
-    public static UserDaoImplement getInstance() {
-        if (instance == null) {
-            synchronized (UserDaoImplement.class) {
-                if (instance == null) {
-                    instance = new UserDaoImplement();
-                }
-            }
-        }
-        return instance;
-    }
+    @Autowired UserDao userDao;
+    @Autowired RoleDao roleDao;
 
     @Override
     public ArrayList<User> getAll() {
@@ -44,7 +49,7 @@ public class UserDaoImplement implements UserDao {
                 );
                 user.setId(resultSet.getInt("id"));
                 ArrayList<Role> roles = new ArrayList<>();
-                RoleDaoImplement.getInstance().getAllRole(user.getId(), roles);
+                roleDao.getAllRole(user.getId(), roles);
                 user.setRole(roles);
                 users.add(user);
             }
@@ -54,35 +59,9 @@ public class UserDaoImplement implements UserDao {
         return users;
     }
 
-    @Override
-    public void addUser(String login, String pass, String name, int age, String birthday, ArrayList<Role> role) {
-        String sql = "insert into users(login,password,name,age,birthday) values(?,?,?,?,?);";
-        String sql1 = "select id from users where login = ?;";
-        try (Connection connection = DBConnection.getConnect();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-             PreparedStatement preparedStatement1 = connection.prepareStatement(sql1)) {
-            preparedStatement.setString(1, login);
-            preparedStatement.setString(2, pass);
-            preparedStatement.setString(3, name);
-            preparedStatement.setInt(4, age);
-            preparedStatement.setDate(5, Date.valueOf(birthday));
-            preparedStatement.executeUpdate();
-            preparedStatement1.setString(1, login);
-            ResultSet resultSet = preparedStatement1.executeQuery();
-            while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                DaoFactory.getInstance().getRoleDao().addRole(id, role);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-
     public User getUserByLoginPass(final String login, final String pass) {
         User result = new User();
-        for (User user : DaoFactory.getInstance().getUserDao().getAll()) {
+        for (User user : userDao.getAll()) {
             if (user.getLogin().equals(login) && user.getPass().equals(pass)) {
                 result = user;
             }
@@ -109,7 +88,7 @@ public class UserDaoImplement implements UserDao {
                 );
                 user.setId(resultSet.getInt("id"));
                 ArrayList<Role> roles = new ArrayList<>();
-                DaoFactory.getInstance().getRoleDao().getRoleUser(login, roles);
+                roleDao.getRoleUser(login, roles);
                 user.setRole(roles);
             }
         } catch (SQLException e) {

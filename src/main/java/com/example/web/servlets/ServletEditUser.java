@@ -1,17 +1,16 @@
 package com.example.web.servlets;
 
-import com.example.dao.DaoFactory;
-import com.example.dao.UserDaoImplement;
+import com.example.dao.UserDao;
 import com.example.domain.Role;
 import com.example.domain.User;
-import com.example.services.AdminServiceImplement;
-import com.example.services.ServiceFactory;
+import com.example.services.AdminService;
 import com.example.utilites.Validation;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,12 +18,17 @@ import java.util.ArrayList;
 @WebServlet(name = "ServletEditUser", value = "/edit.jhtml")
 public class ServletEditUser extends HttpServlet {
 
+    @Autowired
+    UserDao userDao;
+    @Autowired
+    AdminService adminService;
+
     String loginToEdit;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         loginToEdit = req.getParameter("login");
-        for (User u : DaoFactory.getInstance().getUserDao().getAll()) {
+        for (User u : userDao.getAll()) {
             if (u.getLogin().equals(loginToEdit)) {
                 req.setAttribute("user", u);
             }
@@ -55,7 +59,7 @@ public class ServletEditUser extends HttpServlet {
 
         if (validation.isValidLogin(login)) {
             try {
-                ServiceFactory.getInstance().getAdminService().editUser(login, name, Integer.parseInt(age), birthdayStr, Float.parseFloat(salary), roles);
+                adminService.editUser(login, name, Integer.parseInt(age), birthdayStr, Float.parseFloat(salary), roles);
                 message = "user is edited";
             } catch (Exception e) {
                 message = "Error input: ".concat(e.getMessage());

@@ -1,22 +1,25 @@
 package com.example.web.servlets;
 
-import com.example.dao.DaoFactory;
-import com.example.dao.UserDaoImplement;
+import com.example.dao.UserDao;
 import com.example.domain.Role;
-import com.example.services.AdminServiceImplement;
-import com.example.services.ServiceFactory;
+import com.example.services.AdminService;
 import com.example.utilites.Validation;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 @WebServlet(name = "ServletAddUser", value = "/add.jhtml")
 public class ServletAddUser extends HttpServlet {
+
+    @Autowired
+    AdminService adminService;
 
     Validation validation = new Validation();
     String message;
@@ -39,7 +42,7 @@ public class ServletAddUser extends HttpServlet {
         ArrayList<Role> roles = new ArrayList<>();
         roles.add(new Role(role));
 
-        if (ServiceFactory.getInstance().getAdminService().userIsExist(login,pass)) {
+        if (adminService.userIsExist(login,pass)) {
             message = "User " + login + " is exist";
         } else if (!validation.isValidLogin(login)) {
             message = "The login cannot contain spaces or be equal to Null";
@@ -50,7 +53,7 @@ public class ServletAddUser extends HttpServlet {
         } else if (Integer.parseInt(age) < 18) {
             message = "Age doesn't be minor by 18";
         } else {
-            ServiceFactory.getInstance().getAdminService().addUser(login, pass, name, Integer.parseInt(age), birthdayStr, roles);
+            adminService.addUser(login, pass, name, Integer.parseInt(age), birthdayStr, roles);
             message = "User has be added!";
         }
         req.setAttribute("message", message);

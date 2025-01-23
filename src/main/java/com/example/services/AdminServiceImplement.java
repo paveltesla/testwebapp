@@ -1,40 +1,69 @@
 package com.example.services;
 
-
-import com.example.dao.RoleDaoImplement;
-import com.example.dao.UserDaoImplement;
 import com.example.domain.Role;
 import com.example.domain.User;
 import com.example.utilites.DBConnection;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.example.dao.*;
 import java.sql.*;
 import java.util.ArrayList;
 
+@Service
 public class AdminServiceImplement implements AdminService {
-    private static volatile AdminServiceImplement instance;
-    private AdminServiceImplement() {
-    }
-    public static AdminServiceImplement getInstance() {
-        if (instance == null) {
-            synchronized (AdminServiceImplement.class) {
-                if (instance == null) {
-                    instance = new AdminServiceImplement();
-                }
-            }
-        }
-        return instance;
-    }
+
+//    private static volatile AdminServiceImplement instance;
+//    private AdminServiceImplement() {
+//    }
+//    public static AdminServiceImplement getInstance() {
+//        if (instance == null) {
+//            synchronized (AdminServiceImplement.class) {
+//                if (instance == null) {
+//                    instance = new AdminServiceImplement();
+//                }
+//            }
+//        }
+//        return instance;
+//    }
+
+    @Autowired  UserDao userDao;
+    @Autowired RoleDao roleDao;
 
     @Override
     public boolean userIsExist(String login, String pass) {
         boolean result = false;
-        for (User user : UserDaoImplement.getInstance().getAll()) {
+        for (User user : userDao.getAll()) {
             if (user.getLogin().equals(login) && user.getPass().equals(pass)) {
                 result = true;
                 break;
             }
         }
         return result;
+    }
+
+    @Override
+    public void addUser(String login, String pass, String name, int age, String birthday, ArrayList<Role> role) {
+        String sql = "insert into users(login,password,name,age,birthday) values(?,?,?,?,?);";
+        String sql1 = "select id from users where login = ?;";
+        try (Connection connection = DBConnection.getConnect();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+             PreparedStatement preparedStatement1 = connection.prepareStatement(sql1)) {
+            preparedStatement.setString(1, login);
+            preparedStatement.setString(2, pass);
+            preparedStatement.setString(3, name);
+            preparedStatement.setInt(4, age);
+            preparedStatement.setDate(5, Date.valueOf(birthday));
+            preparedStatement.executeUpdate();
+            preparedStatement1.setString(1, login);
+            ResultSet resultSet = preparedStatement1.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                roleDao.addRole(id, role);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -93,7 +122,7 @@ public class AdminServiceImplement implements AdminService {
             ResultSet rs = preparedStatement1.executeQuery();
             while (rs.next()) {
                 int userId = rs.getInt("id");
-                RoleDaoImplement.getInstance().editRole(userId, roles);
+                roleDao.editRole(userId, roles);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -119,7 +148,7 @@ public class AdminServiceImplement implements AdminService {
             ResultSet resultSet = secondPreparedStatement.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
-                RoleDaoImplement.getInstance().addRole(id, roles);
+                roleDao.addRole(id, roles);
 
             }
         } catch (SQLException e) {
