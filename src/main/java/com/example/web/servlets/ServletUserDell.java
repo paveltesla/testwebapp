@@ -13,8 +13,7 @@ import java.io.IOException;
 @WebServlet(name = "ServletUserDell", value = "/dell.jhtml")
 public class ServletUserDell extends HttpServlet {
 
-    @Autowired
-    AdminService adminService;
+    @Autowired private AdminService adminService;
 
     String login;
     String pass;

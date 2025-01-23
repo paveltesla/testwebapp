@@ -16,10 +16,8 @@ import java.io.IOException;
 @WebServlet(name = "ServletEditPass", value = "/editPass.jhtml")
 public class ServletEditPass extends HttpServlet {
 
-    @Autowired
-    UserDao userDao;
-    @Autowired
-    AdminService adminService;
+    @Autowired private UserDao userDao;
+    @Autowired private AdminService adminService;
 
     Validation validation = new Validation();
 

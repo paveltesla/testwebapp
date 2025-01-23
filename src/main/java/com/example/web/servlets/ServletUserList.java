@@ -13,8 +13,7 @@ import java.io.IOException;
 @WebServlet(name = "ServletUserList", value = "/list.jhtml")
 public class ServletUserList extends HttpServlet {
 
-    @Autowired
-    UserDao userDao;
+    @Autowired private UserDao userDao;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

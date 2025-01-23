@@ -1,10 +1,8 @@
 package com.example.web.filters;
 
 import com.example.dao.UserDao;
-import com.example.dao.UserDaoImplement;
 import com.example.domain.User;
 import com.example.services.AdminService;
-import com.example.services.AdminServiceImplement;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,8 +15,7 @@ import java.io.IOException;
 @WebFilter(filterName = "FilterLogin", value = "/auth.jhtml")
 public class FilterLogin implements Filter {
 
-    @Autowired UserDao userDao;
-    @Autowired AdminService adminService;
+    @Autowired private AdminService adminService;
 
     private ServletContext context;
 
@@ -44,7 +41,7 @@ public class FilterLogin implements Filter {
             moveToMenu(req, resp);
 
         } else if (adminService.userIsExist(login, pass)) {
-            User user = userDao.getUserByLogin(login);
+            User user = adminService.getUserByLogin(login);
             req.setAttribute("login", user.getLogin());
             req.setAttribute("pass", user.getPass());
             req.setAttribute("role", user.getRole());

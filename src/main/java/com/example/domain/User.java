@@ -1,5 +1,6 @@
 package com.example.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -89,6 +90,15 @@ public class User {
     }
 
     public User(String login, String password, String name, int age, Date birthday, float salary) {
+        this.pass = password;
+        this.name = name;
+        this.age = age;
+        this.login = login;
+        this.salary = salary;
+        this.birthday = birthday;
+    }
+
+    public User(String login, String password, String name, int age, Date birthday, ArrayList<Role> role) {
         this.pass = password;
         this.name = name;
         this.age = age;

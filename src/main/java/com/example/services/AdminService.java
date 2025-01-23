@@ -7,15 +7,17 @@ import java.util.ArrayList;
 
 public interface AdminService {
 
-    boolean userIsExist(final String login, String pass);
+    boolean userIsExist(String login, String pass);
 
-    void addUser(String login, String pass, String name, int age, String birthday, ArrayList<Role> role);
+    User getUserByLogin(String login);
+
+    void regUser(String login, String name, int i, String pass, ArrayList<Role> roles);
+
+    void addUser(String login, String pass, String name, int i, String birthdayStr, ArrayList<Role> roles);
+
+    void editPass(User userByLogin, String nPassRep);
+
+    void editUser(String login, String name, int i, String birthdayStr, float v, ArrayList<Role> roles);
 
     void delete(String login);
-
-    void editPass(User user, String nPassRep);
-
-    void editUser(String login, String name, int age, String birthday, float salary, ArrayList<Role> roles);
-
-    void regUser(String login, String name, int age, String pass, ArrayList<Role> roles);
 }

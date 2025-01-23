@@ -18,8 +18,7 @@ import java.util.ArrayList;
 @WebServlet(name = "ServletAddUser", value = "/add.jhtml")
 public class ServletAddUser extends HttpServlet {
 
-    @Autowired
-    AdminService adminService;
+    @Autowired private AdminService adminService;
 
     Validation validation = new Validation();
     String message;

@@ -17,10 +17,7 @@ import java.util.ArrayList;
 @WebServlet(name = "ServletReg", value = "/reg.jhtml")
 public class ServletReg extends HttpServlet {
 
-    @Autowired
-    UserDao userDao;
-    @Autowired
-    AdminService adminService;
+    @Autowired private AdminService adminService;
 
     Validation validation = new Validation();
     String login;

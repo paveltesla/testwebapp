@@ -12,4 +12,14 @@ public interface UserDao {
 
     User getUserByLogin(String login);
 
+    void addUser(String login, String pass, String name, int age, String birthday, ArrayList<Role> role);
+
+    void delete(String login);
+
+    void editPass(User user, String nPassRep);
+
+    void editUser(String login, String name, int age, String birthday, float salary, ArrayList<Role> roles);
+
+    void regUser(String login, String name, int age, String pass, ArrayList<Role> roles);
+
 }
