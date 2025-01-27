@@ -4,6 +4,7 @@ import com.example.domain.Role;
 import com.example.domain.User;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public interface AdminService {
 
@@ -11,13 +12,13 @@ public interface AdminService {
 
     User getUserByLogin(String login);
 
-    void regUser(String login, String name, int i, String pass, ArrayList<Role> roles);
+    void regUser(String login, String name, int age, String pass, ArrayList<Role> roles);
 
-    void addUser(String login, String pass, String name, int i, String birthdayStr, ArrayList<Role> roles);
+    void addUser(String login, String pass, String name, int age, String birthday, ArrayList<Role> roles);
 
     void editPass(User userByLogin, String nPassRep);
 
-    void editUser(String login, String name, int i, String birthdayStr, float v, ArrayList<Role> roles);
+    void editUser(String login, String name, int age, String birthdayStr, float salary, ArrayList<Role> roles);
 
     void delete(String login);
 }

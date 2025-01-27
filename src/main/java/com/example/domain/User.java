@@ -6,7 +6,6 @@ import java.util.List;
 
 public class User {
 
-
     private int id;
     private String login;
     private String pass;
@@ -95,6 +94,14 @@ public class User {
         this.age = age;
         this.login = login;
         this.salary = salary;
+        this.birthday = birthday;
+    }
+
+    public User(String login, String pass, String name, int age, Date birthday){
+        this.login = login;
+        this.pass = pass;
+        this.name = name;
+        this.age = age;
         this.birthday = birthday;
     }
 

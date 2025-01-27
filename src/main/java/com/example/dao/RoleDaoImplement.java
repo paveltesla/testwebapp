@@ -2,7 +2,6 @@ package com.example.dao;
 
 import com.example.domain.Role;
 import com.example.utilites.DBConnection;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;

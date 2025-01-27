@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.dao.RoleDao">
+
+    <!-- Получить роли пользователя по логину -->
+    <select id="getRoleUser" parameterType="string" resultType="com.example.domain.Role">
+        SELECT role_id, user_id, value
+        FROM users_role
+                 LEFT JOIN role ON role.id = users_role.role_id
+                 LEFT JOIN users ON users.id = users_role.user_id
+        WHERE login = #{login};
+    </select>
+
+    <!-- Получить все роли пользователя по ID -->
+    <select id="getAllRole" parameterType="int" resultType="com.example.domain.Role">
+        SELECT user_id, role_id, role.value
+        FROM users_role
+                 LEFT JOIN role ON role.id = users_role.role_id
+                 LEFT JOIN users ON users.id = users_role.user_id
+        WHERE user_id = #{userId};
+    </select>
+
+    <!-- Добавить роли пользователю -->
+    <insert id="addRole" parameterType="map">
+        <foreach collection="roles" item="role" separator=";">
+            INSERT INTO users_role (user_id, role_id)
+            VALUES (#{userId}, #{role.id})
+        </foreach>
+    </insert>
+
+    <!-- Обновить роли пользователя -->
+    <update id="editRole" parameterType="map">
+        DELETE FROM users_role WHERE user_id = #{userId};
+        <foreach collection="roles" item="role" separator=";">
+            INSERT INTO users_role (user_id, role_id)
+            VALUES (#{userId}, #{role.id})
+        </foreach>
+    </update>
+</mapper>

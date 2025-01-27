@@ -11,8 +11,8 @@ import java.util.ArrayList;
 @Repository
 public class UserDaoImplement implements UserDao {
 
-
-    @Autowired RoleDao roleDao;
+    @Autowired
+    RoleDao roleDao;
 
     @Override
     public ArrayList<User> getAll() {

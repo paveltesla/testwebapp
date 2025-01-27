@@ -11,22 +11,8 @@ import java.util.ArrayList;
 @Service
 public class AdminServiceImplement implements AdminService {
 
-//    private static volatile AdminServiceImplement instance;
-//    private AdminServiceImplement() {
-//    }
-//    public static AdminServiceImplement getInstance() {
-//        if (instance == null) {
-//            synchronized (AdminServiceImplement.class) {
-//                if (instance == null) {
-//                    instance = new AdminServiceImplement();
-//                }
-//            }
-//        }
-//        return instance;
-//    }
-
-    @Autowired private UserDao userDao;
-
+    @Autowired
+    private UserDao userDao;
 
     public boolean userIsExist(String login, String pass) {
         boolean result = false;
@@ -39,11 +25,9 @@ public class AdminServiceImplement implements AdminService {
         return result;
     }
 
-
     public void addUser(String login, String pass, String name, int age, String birthday, ArrayList<Role> role) {
         userDao.addUser(login, pass, name, age, birthday, role);
     }
-
 
     public void delete(String login) {
         userDao.delete(login);
@@ -57,6 +41,7 @@ public class AdminServiceImplement implements AdminService {
 
     public void editUser(String login, String name, int age, String birthday, float salary, ArrayList<Role> roles) {
         userDao.editUser(login, name, age, birthday, salary, roles);
+
     }
 
 
