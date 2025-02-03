@@ -50,7 +50,6 @@ public class AdminServiceImplement implements AdminService {
     }
 
     public User getUserByLogin(String login) {
-        userDao.getUserByLogin(login);
-        return null;
+        return userDao.getUserByLogin(login);
     }
 }

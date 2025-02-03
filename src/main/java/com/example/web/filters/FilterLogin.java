@@ -1,6 +1,6 @@
 package com.example.web.filters;
 
-import com.example.dao.UserDao;
+
 import com.example.domain.User;
 import com.example.services.AdminService;
 import jakarta.servlet.*;
@@ -9,20 +9,23 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+
 
 import java.io.IOException;
 
+@Component
+@Order(1)
 @WebFilter(filterName = "FilterLogin", value = "/auth.jhtml")
 public class FilterLogin implements Filter {
 
     @Autowired
     private AdminService adminService;
 
-    private ServletContext context;
-
-    public void init(FilterConfig fConfig) throws ServletException {
-        this.context = fConfig.getServletContext();
-        this.context.log("RequestLoggingFilter initialized");
+    public void init(FilterConfig fConfig) {
+        ServletContext context = fConfig.getServletContext();
+        context.log("RequestLoggingFilter initialized");
     }
 
     @Override
