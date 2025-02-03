@@ -15,7 +15,8 @@ import java.io.IOException;
 @WebFilter(filterName = "FilterLogin", value = "/auth.jhtml")
 public class FilterLogin implements Filter {
 
-    @Autowired private AdminService adminService;
+    @Autowired
+    private AdminService adminService;
 
     private ServletContext context;
 
