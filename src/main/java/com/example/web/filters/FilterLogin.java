@@ -8,20 +8,19 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
+
 
 
 import java.io.IOException;
 
-@Component
-@Order(1)
 @WebFilter(filterName = "FilterLogin", value = "/auth.jhtml")
 public class FilterLogin implements Filter {
 
-    @Autowired
-    private AdminService adminService;
+    private final AdminService adminService;
+
+    public FilterLogin(AdminService adminService) {
+        this.adminService = adminService;
+    }
 
     public void init(FilterConfig fConfig) {
         ServletContext context = fConfig.getServletContext();
