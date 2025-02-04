@@ -1,6 +1,5 @@
 package com.example.web.servlets;
 
-import com.example.dao.UserDao;
 import com.example.domain.Role;
 import com.example.services.AdminService;
 import com.example.utilites.Validation;
@@ -17,7 +16,8 @@ import java.util.ArrayList;
 @WebServlet(name = "ServletReg", value = "/reg.jhtml")
 public class ServletReg extends HttpServlet {
 
-    @Autowired private AdminService adminService;
+    @Autowired
+    private AdminService adminService;
 
     Validation validation = new Validation();
     String login;
@@ -56,7 +56,7 @@ public class ServletReg extends HttpServlet {
             message = "Password is invalid";
             req.setAttribute("message", message);
             req.getRequestDispatcher("WEB-INF/jsp/Sign_in.jsp").forward(req, resp);
-        } else if (age.equals("") || Integer.parseInt(age) < 18 || Integer.parseInt(age) > 100) {
+        } else if (age.isEmpty() || Integer.parseInt(age) < 18 || Integer.parseInt(age) > 100) {
             message = "Age input error";
             req.setAttribute("message", message);
             req.getRequestDispatcher("WEB-INF/jsp/Sign_in.jsp").forward(req, resp);

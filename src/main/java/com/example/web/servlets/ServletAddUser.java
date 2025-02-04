@@ -1,6 +1,5 @@
 package com.example.web.servlets;
 
-import com.example.dao.UserDao;
 import com.example.domain.Role;
 import com.example.services.AdminService;
 import com.example.utilites.Validation;
@@ -18,7 +17,8 @@ import java.util.ArrayList;
 @WebServlet(name = "ServletAddUser", value = "/add.jhtml")
 public class ServletAddUser extends HttpServlet {
 
-    @Autowired private AdminService adminService;
+    @Autowired
+    private AdminService adminService;
 
     Validation validation = new Validation();
     String message;
@@ -47,7 +47,7 @@ public class ServletAddUser extends HttpServlet {
             message = "The login cannot contain spaces or be equal to Null";
         } else if (!validation.isValidPassword(pass)) {
             message = "The password must not be less than 8 characters";
-        } else if (age.equals("")) {
+        } else if (age.isEmpty()) {
             message = "Insert your age";
         } else if (Integer.parseInt(age) < 18) {
             message = "Age doesn't be minor by 18";

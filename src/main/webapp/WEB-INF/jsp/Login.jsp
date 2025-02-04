@@ -21,7 +21,7 @@
     <div class="main">
         <div class="content">
             <h1 class="title"><span>Welcome</span></h1>
-            <form method="post" action="/auth.jhtml" autocomplete="off">
+            <form method="post" action="<c:url value="/auth.jhtml"/>" autocomplete="off">
                 <label>
                     <input class="input" type="text" name="login" placeholder="Login">
                 </label>
@@ -38,6 +38,5 @@
     </div>
     <t:footer/>
 </div>
-
 </body>
 </html>

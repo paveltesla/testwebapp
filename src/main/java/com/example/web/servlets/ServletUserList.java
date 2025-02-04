@@ -13,7 +13,8 @@ import java.io.IOException;
 @WebServlet(name = "ServletUserList", value = "/list.jhtml")
 public class ServletUserList extends HttpServlet {
 
-    @Autowired private UserDao userDao;
+    @Autowired
+    private UserDao userDao;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -21,10 +22,5 @@ public class ServletUserList extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("list", userDao.getAll());
         request.getRequestDispatcher("WEB-INF/jsp/UserList.jsp").forward(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 }

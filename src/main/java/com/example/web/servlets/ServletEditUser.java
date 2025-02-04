@@ -18,8 +18,10 @@ import java.util.ArrayList;
 @WebServlet(name = "ServletEditUser", value = "/edit.jhtml")
 public class ServletEditUser extends HttpServlet {
 
-    @Autowired private UserDao userDao;
-    @Autowired private AdminService adminService;
+    @Autowired
+    private UserDao userDao;
+    @Autowired
+    private AdminService adminService;
 
     String loginToEdit;
 
